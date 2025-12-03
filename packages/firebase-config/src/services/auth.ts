@@ -34,5 +34,3 @@ export const signOut = async (): Promise<void> => {
 export const onAuthStateChanged = (callback: (user: User | null) => void): (() => void) => {
   return firebaseOnAuthStateChanged(auth, callback);
 };
-
-export { auth };
