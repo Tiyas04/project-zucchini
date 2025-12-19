@@ -12,7 +12,19 @@ interface UploadedFile {
   timestamp: number;
 }
 
-export default function CloudinaryUploader() {
+interface CloudinaryUploaderProps {
+  maxFiles?: number;
+  value?: string;
+  onUploadComplete?: (url: string) => void;
+  showCopyButton?: boolean;
+}
+
+export default function CloudinaryUploader({
+  maxFiles,
+  value,
+  onUploadComplete,
+  showCopyButton = false,
+}: CloudinaryUploaderProps = {}) {
   const [isDragging, setIsDragging] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
@@ -51,7 +63,10 @@ export default function CloudinaryUploader() {
     setError(null);
     setIsUploading(true);
 
-    for (const file of files) {
+    // Respect maxFiles limit
+    const filesToUpload = maxFiles ? files.slice(0, maxFiles) : files;
+
+    for (const file of filesToUpload) {
       try {
         const formData = new FormData();
         formData.append("file", file);
@@ -67,17 +82,24 @@ export default function CloudinaryUploader() {
           throw new Error(result.error || "Upload failed");
         }
 
-        setUploadedFiles((prev) => [
-          {
-            url: result.data.url,
-            publicId: result.data.publicId,
-            format: result.data.format,
-            resourceType: result.data.resourceType,
-            fileName: file.name,
-            timestamp: Date.now(),
-          },
-          ...prev,
-        ]);
+        const uploadedFile = {
+          url: result.data.url,
+          publicId: result.data.publicId,
+          format: result.data.format,
+          resourceType: result.data.resourceType,
+          fileName: file.name,
+          timestamp: Date.now(),
+        };
+
+        // If maxFiles is 1, replace the existing file
+        if (maxFiles === 1) {
+          setUploadedFiles([uploadedFile]);
+        } else {
+          setUploadedFiles((prev) => [uploadedFile, ...prev]);
+        }
+
+        // Call the callback with the URL
+        onUploadComplete?.(result.data.url);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Upload failed");
       }
@@ -104,15 +126,16 @@ export default function CloudinaryUploader() {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto space-y-6">
+    <div className="w-full space-y-4">
       <div
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         onClick={() => fileInputRef.current?.click()}
         className={`
-          relative border-2 border-dashed rounded-lg p-12 text-center cursor-pointer
+          relative border-2 border-dashed rounded-lg text-center cursor-pointer
           transition-all duration-200
+          ${maxFiles === 1 ? "p-6" : "p-12"}
           ${
             isDragging
               ? "border-blue-500 bg-blue-50"
@@ -124,28 +147,44 @@ export default function CloudinaryUploader() {
         <input
           ref={fileInputRef}
           type="file"
-          multiple
+          multiple={!maxFiles || maxFiles > 1}
           onChange={handleFileSelect}
           className="hidden"
-          accept="image/*,video/*,.pdf,.doc,.docx"
+          accept="image/*,video/*,.pdf,.doc,.docx,.svg"
         />
 
-        <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col items-center gap-3">
           {isUploading ? (
             <>
-              <Loader2 className="w-12 h-12 text-gray-600 animate-spin" />
-              <p className="text-gray-700">Uploading...</p>
+              <Loader2
+                className={`${maxFiles === 1 ? "w-8 h-8" : "w-12 h-12"} text-gray-600 animate-spin`}
+              />
+              <p className="text-gray-700 text-sm">Uploading...</p>
+            </>
+          ) : uploadedFiles.length > 0 && maxFiles === 1 ? (
+            <>
+              <div className="p-2 bg-green-100 rounded-full">
+                <svg className="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+              </div>
+              <p className="text-sm font-medium text-gray-800">File uploaded successfully</p>
+              <p className="text-xs text-gray-500">Click to upload a different file</p>
             </>
           ) : (
             <>
-              <div className="p-3 bg-gray-200 rounded-full">
-                <Upload className="w-10 h-10 text-gray-700" />
+              <div className={`p-3 bg-gray-200 rounded-full ${maxFiles === 1 ? "p-2" : "p-3"}`}>
+                <Upload className={`${maxFiles === 1 ? "w-6 h-6" : "w-10 h-10"} text-gray-700`} />
               </div>
               <div>
-                <p className="text-lg font-medium text-gray-800 mb-1">
-                  Drop files here or click to browse
+                <p
+                  className={`${maxFiles === 1 ? "text-base" : "text-lg"} font-medium text-gray-800 mb-1`}
+                >
+                  Drop {maxFiles === 1 ? "file" : "files"} here or click to browse
                 </p>
-                <p className="text-sm text-gray-500">Supports images, videos, and documents</p>
+                <p className="text-sm text-gray-500">
+                  Supports images (including SVG), videos, and documents
+                </p>
               </div>
             </>
           )}
@@ -197,42 +236,33 @@ export default function CloudinaryUploader() {
 
                   <div className="flex-1 min-w-0">
                     <p className="font-medium text-gray-800 truncate mb-1">{file.fileName}</p>
-                    <p className="text-sm text-gray-500 mb-2">
-                      {file.format.toUpperCase()} • {file.resourceType}
+                    <p className="text-sm text-gray-500">
+                      {file.format?.toUpperCase() || "FILE"} • {file.resourceType}
                     </p>
-
-                    <div className="flex items-center gap-2 bg-gray-50 rounded-lg p-2 border border-gray-200">
-                      <input
-                        type="text"
-                        value={file.url}
-                        readOnly
-                        className="flex-1 bg-transparent text-sm text-gray-700 outline-none"
-                      />
-                      <button
-                        onClick={() => copyToClipboard(file.url)}
-                        className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium rounded-md transition-colors"
-                      >
-                        {copiedUrl === file.url ? (
-                          <>
-                            <Check className="w-4 h-4" />
-                            Copied
-                          </>
-                        ) : (
-                          <>
-                            <Copy className="w-4 h-4" />
-                            Copy
-                          </>
-                        )}
-                      </button>
-                    </div>
                   </div>
 
-                  <button
-                    onClick={() => removeFile(file.timestamp)}
-                    className="flex-shrink-0 p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
-                  >
-                    <X className="w-5 h-5" />
-                  </button>
+                  <div className="flex items-center gap-2">
+                    {showCopyButton && (
+                      <button
+                        onClick={() => copyToClipboard(file.url)}
+                        className="flex-shrink-0 p-2 text-gray-400 hover:text-blue-500 hover:bg-blue-50 rounded-lg transition-colors"
+                        title="Copy URL"
+                      >
+                        {copiedUrl === file.url ? (
+                          <Check className="w-5 h-5 text-green-500" />
+                        ) : (
+                          <Copy className="w-5 h-5" />
+                        )}
+                      </button>
+                    )}
+
+                    <button
+                      onClick={() => removeFile(file.timestamp)}
+                      className="flex-shrink-0 p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}

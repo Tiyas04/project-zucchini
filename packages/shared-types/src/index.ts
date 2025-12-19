@@ -1,6 +1,7 @@
 import { type ZodSchema, type ZodError } from "zod";
 
 export { RegistrationSchema, type Registration, schemas } from "./schemas";
+export { MunRegistrationSchema, type MunRegistration } from "./schemas";
 
 export class ValidationError extends Error {
   constructor(

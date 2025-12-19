@@ -3,6 +3,27 @@ import { usersTable, transactionsTable } from "../schema";
 import { desc, eq } from "drizzle-orm";
 import { type Registration, RegistrationSchema, validateAndThrow } from "@repo/shared-types";
 
+export const getUserByFirebaseUid = async (firebaseUid: string) => {
+  const [result] = await db
+    .select({
+      user: usersTable,
+      transaction: transactionsTable,
+    })
+    .from(usersTable)
+    .leftJoin(transactionsTable, eq(usersTable.id, transactionsTable.userId))
+    .where(eq(usersTable.firebaseUid, firebaseUid))
+    .limit(1);
+
+  if (!result) {
+    return null;
+  }
+
+  return {
+    ...result.user,
+    isPaymentVerified: result.transaction?.isVerified || false,
+  };
+};
+
 export const registerUser = async (userData: Registration, firebaseUid: string) => {
   validateAndThrow(RegistrationSchema, userData, "User registration");
 
@@ -19,9 +40,8 @@ export const registerUser = async (userData: Registration, firebaseUid: string) 
       rollNumber: userData.rollNumber,
       idCard: userData.idCard,
       referralCode: userData.referralCode || null,
-      campusAmbassador: userData.campusAmbassador || false,
-      hasPermission: userData.permission,
-      hasAcceptedUndertaking: userData.undertaking,
+      permission: userData.permission,
+      undertaking: userData.undertaking,
     })
     .returning();
 
@@ -48,7 +68,6 @@ export const getPaginatedUsers = async (pageSize: number = 10, page: number = 0)
       rollNumber: usersTable.rollNumber,
       idCard: usersTable.idCard,
       referralCode: usersTable.referralCode,
-      campusAmbassador: usersTable.campusAmbassador,
       isVerified: usersTable.isVerified,
       registeredAt: usersTable.registeredAt,
       transaction: transactionsTable,

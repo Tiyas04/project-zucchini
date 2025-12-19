@@ -16,6 +16,11 @@ export {
   razorpayPaymentsTable,
   genderEnum,
   paymentMethodEnum,
+  munRegistrationsTable,
+  munTransactionsTable,
+  studentTypeEnum,
+  munCommitteeEnum,
+  bloodGroupEnum,
 } from "./schema";
 
 export type {
@@ -27,6 +32,10 @@ export type {
   NewAdmin,
   RazorpayPayment,
   NewRazorpayPayment,
+  MunRegistration,
+  NewMunRegistration,
+  MunTransaction,
+  NewMunTransaction,
 } from "./schema";
 
 export { eq, and, or, not, sql, desc, asc } from "drizzle-orm";

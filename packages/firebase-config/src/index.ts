@@ -15,7 +15,7 @@ export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
 
+// Export Firebase types
+export type { User } from "firebase/auth";
+
 export * from "./services/auth";
-export * from "./services/user";
-export * from "./services/admin";
-export * from "./services/payment";

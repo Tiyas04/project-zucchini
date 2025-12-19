@@ -8,6 +8,20 @@
       "when": 1766131455046,
       "tag": "0000_awesome_korg",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1766143066418,
+      "tag": "0001_salty_professor_monster",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1766172449943,
+      "tag": "0002_new_nextwave",
+      "breakpoints": true
     }
   ]
 }

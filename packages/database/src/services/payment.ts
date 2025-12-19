@@ -1,5 +1,11 @@
 import { db } from "../index";
-import { usersTable, transactionsTable, razorpayPaymentsTable } from "../schema";
+import {
+  usersTable,
+  transactionsTable,
+  razorpayPaymentsTable,
+  munRegistrationsTable,
+  munTransactionsTable,
+} from "../schema";
 import { eq } from "drizzle-orm";
 import { ApiError } from "@repo/shared-types";
 
@@ -98,5 +104,54 @@ export const getPaymentStatus = async (userId: number) => {
     isVerified: transaction.isVerified,
     paymentMethod: transaction.paymentMethod,
     razorpayDetails,
+  };
+};
+
+// MUN Payment Functions
+export const updateMunPaymentStatus = async (
+  munRegistrationId: number,
+  amount: number,
+  paymentMethod: PaymentMethod = "razorpay",
+  razorpayDetails?: RazorpayDetails
+) => {
+  const [munUser] = await db
+    .select()
+    .from(munRegistrationsTable)
+    .where(eq(munRegistrationsTable.id, munRegistrationId));
+
+  if (!munUser) {
+    throw new ApiError(404, "MUN registration not found");
+  }
+
+  if (!razorpayDetails) {
+    throw new ApiError(400, "Razorpay details not found");
+  }
+
+  await db
+    .update(munRegistrationsTable)
+    .set({ isVerified: true })
+    .where(eq(munRegistrationsTable.id, munRegistrationId));
+
+  const [transaction] = await db
+    .insert(munTransactionsTable)
+    .values({
+      munRegistrationId,
+      transactionId: razorpayDetails.paymentId,
+      amount,
+      isVerified: true,
+      paymentMethod,
+    })
+    .returning();
+
+  if (!transaction) {
+    throw new ApiError(404, "Transaction not found");
+  }
+
+  // Note: We don't insert into razorpayPaymentsTable for MUN transactions
+  // because it has a foreign key to the regular transactions table.
+  // All payment details are already stored in munTransactionsTable.
+
+  return {
+    message: "MUN payment verified successfully",
   };
 };

@@ -3,3 +3,116 @@
 * {
   box-sizing: border-box;
 }
+
+@theme inline {
+  --font-baloo: var(--font-baloo);
+  --font-inria: var(--font-inria);
+}
+
+/* Hero animations */
+@keyframes slideFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+/* Music visualizer animations */
+@keyframes scaler {
+  0% {
+    transform: scaleY(0.8);
+  }
+  25% {
+    transform: scaleY(1.7);
+  }
+  50% {
+    transform: scaleY(0.9);
+  }
+  75% {
+    transform: scaleY(1.5);
+  }
+  100% {
+    transform: scaleY(0.8);
+  }
+}
+
+@keyframes scaler2 {
+  0% {
+    transform: scaleY(0.8);
+  }
+  25% {
+    transform: scaleY(1.1);
+  }
+  50% {
+    transform: scaleY(0.9);
+  }
+  75% {
+    transform: scaleY(1.1);
+  }
+  100% {
+    transform: scaleY(0.8);
+  }
+}
+
+.visualizer-bar {
+  height: 1.5vw;
+  width: 0.3vw;
+  border-radius: 50px;
+  background: white;
+  animation: scaler 2s ease-in-out infinite;
+  transition: height 0.3s ease-in-out;
+}
+
+.bar-1 {
+  animation: scaler2 2s ease-in-out infinite;
+  animation-duration: 1.7s;
+}
+
+.bar-2 {
+  animation-delay: -0.675s;
+  animation-duration: 2.7s;
+}
+
+.bar-3 {
+  animation-duration: 2.7s;
+}
+
+.bar-4 {
+  animation-delay: -0.675s;
+  animation-duration: 2.7s;
+}
+
+.bar-5 {
+  animation: scaler2 2s ease-in-out infinite;
+  animation-duration: 1.7s;
+}
+
+/* Hot air balloon floating animation */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}

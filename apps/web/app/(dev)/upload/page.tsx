@@ -13,7 +13,7 @@ export default function UploadPage() {
         </div>
 
         {/* Uploader Component */}
-        <CloudinaryUploader />
+        <CloudinaryUploader showCopyButton={true} />
 
         {/* Footer Note */}
         <div className="mt-8 text-center text-sm text-gray-500">
