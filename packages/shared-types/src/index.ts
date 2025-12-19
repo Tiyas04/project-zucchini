@@ -53,3 +53,19 @@ export function handleError(error: unknown, defaultMessage = "Operation failed")
   }
   throw error;
 }
+
+export class ApiError extends Error {
+  constructor(
+    public readonly statusCode: number,
+    message: string,
+    public readonly details?: unknown
+  ) {
+    super(message);
+    this.name = "ApiError";
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, ApiError);
+    }
+  }
+}
+
+export const isApiError = (error: unknown): error is ApiError => error instanceof ApiError;

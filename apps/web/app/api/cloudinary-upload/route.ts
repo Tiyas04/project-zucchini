@@ -1,5 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import { v2 as cloudinary } from "cloudinary";
+import { handleResponse, handleApiError } from "@repo/shared-utils/src/api-utils";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -9,7 +10,7 @@ cloudinary.config({
 
 export async function POST(request: NextRequest) {
   if (process.env.NODE_ENV === "production") {
-    return NextResponse.json({ message: "Not found" }, { status: 404 });
+    return handleApiError(new Error("Not found"), "Not found");
   }
 
   try {
@@ -18,9 +19,9 @@ export async function POST(request: NextRequest) {
       !process.env.CLOUDINARY_API_KEY ||
       !process.env.CLOUDINARY_API_SECRET
     ) {
-      return NextResponse.json(
-        { message: "Cloudinary credentials not configured" },
-        { status: 500 }
+      return handleApiError(
+        new Error("Cloudinary credentials not configured"),
+        "Server configuration error"
       );
     }
 
@@ -28,7 +29,7 @@ export async function POST(request: NextRequest) {
     const file = formData.get("file") as File;
 
     if (!file) {
-      return NextResponse.json({ message: "No file provided" }, { status: 400 });
+      return handleApiError(new Error("No file provided"), "No file provided");
     }
 
     const bytes = await file.arrayBuffer();
@@ -37,26 +38,17 @@ export async function POST(request: NextRequest) {
 
     const result = await cloudinary.uploader.upload(base64File, {
       folder: "nitrutsav-2026",
-      resource_type: "auto", // Automatically detect resource type (image, video, raw)
+      resource_type: "auto",
     });
 
-    return NextResponse.json(
-      {
-        url: result.secure_url,
-        publicId: result.public_id,
-        format: result.format,
-        resourceType: result.resource_type,
-      },
-      { status: 200 }
-    );
+    return handleResponse({
+      url: result.secure_url,
+      publicId: result.public_id,
+      format: result.format,
+      resourceType: result.resource_type,
+    });
   } catch (error) {
     console.error("Cloudinary upload error:", error);
-    return NextResponse.json(
-      {
-        message: "Upload failed",
-        error: error instanceof Error ? error.message : "Unknown error",
-      },
-      { status: 500 }
-    );
+    return handleApiError(error, "Upload failed");
   }
 }

@@ -40,10 +40,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
       if (!authUser && !pathname?.includes("/login")) {
         router.push("/login");
       }
-
-      if (authUser && pathname?.includes("/login")) {
-        router.push("/registrations");
-      }
     });
 
     return () => unsubscribe();

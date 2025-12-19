@@ -61,18 +61,18 @@ export default function CloudinaryUploader() {
           body: formData,
         });
 
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.message || "Upload failed");
+        const result = await response.json();
+
+        if (!result.success) {
+          throw new Error(result.error || "Upload failed");
         }
 
-        const data = await response.json();
         setUploadedFiles((prev) => [
           {
-            url: data.url,
-            publicId: data.publicId,
-            format: data.format,
-            resourceType: data.resourceType,
+            url: result.data.url,
+            publicId: result.data.publicId,
+            format: result.data.format,
+            resourceType: result.data.resourceType,
             fileName: file.name,
             timestamp: Date.now(),
           },

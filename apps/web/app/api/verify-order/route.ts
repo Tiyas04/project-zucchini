@@ -1,74 +1,55 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import crypto from "crypto";
-import { updatePaymentStatus } from "@repo/firebase-config";
+import { updatePaymentStatus } from "@repo/database";
+import { handleResponse, handleApiError } from "@repo/shared-utils/src/api-utils";
 
 export interface VerifyBody {
   razorpay_order_id: string;
   razorpay_payment_id: string;
   razorpay_signature: string;
-  userDocumentId: string;
+  userId: string;
 }
 
 export async function POST(request: NextRequest) {
   try {
-    const {
-      razorpay_order_id,
-      razorpay_payment_id,
-      razorpay_signature,
-      userDocumentId,
-    }: VerifyBody = await request.json();
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature, userId }: VerifyBody =
+      await request.json();
 
     if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
-      return NextResponse.json(
-        { error: "Missing required parameters", success: false },
-        { status: 400 }
+      return handleApiError(
+        new Error("Missing required parameters"),
+        "Missing required parameters"
       );
     }
 
-    if (!userDocumentId) {
-      return NextResponse.json(
-        { error: "User document ID is required", success: false },
-        { status: 400 }
-      );
+    if (!userId) {
+      return handleApiError(new Error("User ID is required"), "User ID is required");
     }
 
     const secret = process.env.RAZORPAY_KEY_SECRET as string;
     if (!secret) {
-      return NextResponse.json({ error: "Razorpay secret not found" }, { status: 400 });
+      return handleApiError(
+        new Error("Razorpay secret not configured"),
+        "Server configuration error"
+      );
     }
 
     const HMAC = crypto.createHmac("sha256", secret);
     HMAC.update(`${razorpay_order_id}|${razorpay_payment_id}`);
     const generatedSignature = HMAC.digest("hex");
 
-    if (generatedSignature === razorpay_signature) {
-      try {
-        const result = await updatePaymentStatus(userDocumentId, "razorpay", {
-          orderId: razorpay_order_id,
-          paymentId: razorpay_payment_id,
-          signature: razorpay_signature,
-        });
-
-        return NextResponse.json({
-          message: "Payment verified successfully",
-          success: true,
-          data: result,
-        });
-      } catch (firebaseError) {
-        console.error("Firebase update error:", firebaseError);
-        return NextResponse.json(
-          {
-            error: "Payment verified but failed to update database",
-            success: false,
-          },
-          { status: 500 }
-        );
-      }
-    } else {
-      return NextResponse.json({ error: "Invalid signature", success: false }, { status: 400 });
+    if (generatedSignature !== razorpay_signature) {
+      return handleApiError(new Error("Invalid signature"), "Invalid payment signature");
     }
+
+    const result = await updatePaymentStatus(Number(userId), "razorpay", {
+      orderId: razorpay_order_id,
+      paymentId: razorpay_payment_id,
+      signature: razorpay_signature,
+    });
+
+    return handleResponse(result);
   } catch (error) {
-    console.error("Verification error:", error);
-    return NextResponse.json({ error: "An error occurred", success: false }, { status: 500 });
+    return handleApiError(error, "Payment verification failed");
   }
 }

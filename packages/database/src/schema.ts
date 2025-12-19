@@ -40,7 +40,6 @@ export const transactionsTable = pgTable("transactions", {
 
 export const adminsTable = pgTable("admins", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
-  firebaseUid: varchar({ length: 128 }).notNull().unique(),
   email: varchar({ length: 255 }).notNull().unique(),
   name: varchar({ length: 255 }),
   createdAt: timestamp().notNull().defaultNow(),

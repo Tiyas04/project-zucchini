@@ -27,10 +27,16 @@ export default function SubmitButton() {
               userDocumentId: "DOCUMENT_ID",
             });
 
-            alert("Payment Successful!");
-            console.log(paymentResponse.data);
-          } catch (error) {
-            alert("Payment verification failed. Please contact support.");
+            if (paymentResponse.data.success) {
+              alert("Payment Successful!");
+              console.log(paymentResponse.data.data);
+            } else {
+              alert(paymentResponse.data.error || "Payment verification failed");
+            }
+          } catch (error: any) {
+            const errorMessage =
+              error.response?.data?.error || "Payment verification failed. Please contact support.";
+            alert(errorMessage);
             console.error(error);
           }
         },

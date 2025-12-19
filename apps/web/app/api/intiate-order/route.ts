@@ -1,11 +1,19 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import Razorpay from "razorpay";
 import { amount } from "../../../config";
+import { handleResponse, handleApiError } from "@repo/shared-utils/src/api-utils";
 
 export async function POST(request: NextRequest) {
   try {
-    const keyId = process.env.RAZORPAY_KEY_ID!;
-    const keySecret = process.env.RAZORPAY_KEY_SECRET!;
+    const keyId = process.env.RAZORPAY_KEY_ID;
+    const keySecret = process.env.RAZORPAY_KEY_SECRET;
+
+    if (!keyId || !keySecret) {
+      return handleApiError(
+        new Error("Razorpay credentials not configured"),
+        "Server configuration error"
+      );
+    }
 
     const razorpay = new Razorpay({
       key_id: keyId,
@@ -19,8 +27,8 @@ export async function POST(request: NextRequest) {
     };
 
     const order = await razorpay.orders.create(options);
-    return NextResponse.json({ orderId: order.id }, { status: 200 });
+    return handleResponse({ orderId: order.id });
   } catch (error) {
-    return NextResponse.json({ message: "Server Error", error }, { status: 500 });
+    return handleApiError(error, "Failed to create order");
   }
 }
