@@ -1,10 +1,10 @@
-import SubmitButton from "@/components/submit-button";
-
-export default function Playground() {
+import Hero from "@/components/hero/hero";
+const Playground = () => {
   return (
-    <main>
-      <h1>Playground Page</h1>
-      <SubmitButton />
-    </main>
+    <div>
+      <Hero />
+    </div>
   );
-}
+};
+
+export default Playground;
