@@ -1,4 +1,4 @@
-import { H1 } from "@repo/ui/core/typography";
+import { H1, P } from "@repo/ui/core/typography";
 
 export default function Header({
   title,
@@ -18,7 +18,7 @@ export default function Header({
           <H1 className="text-2xl font-semibold tracking-tight">{title}</H1>
         </div>
 
-        {subtitle && <p className="mt-1 text-sm text-zinc-400">{subtitle}</p>}
+        {subtitle && <P className="mt-1 text-sm text-zinc-400">{subtitle}</P>}
       </div>
     </header>
   );
