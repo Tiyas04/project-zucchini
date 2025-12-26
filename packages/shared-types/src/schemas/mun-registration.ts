@@ -9,7 +9,46 @@ const PATTERNS = {
 const MESSAGES = {
   REQUIRED: (field: string) => `${field} is required`,
   INVALID: (field: string) => `Invalid ${field.toLowerCase()}`,
+  INSTITUTE_BANNED:
+    "Students from this institute/university have been officially barred from participating in NITRUTSAV'26",
 };
+
+/**
+ * Banned institute keywords - if any of these appear in the input, reject it
+ */
+const bannedKeywords = [
+  "iter",
+  "soa",
+  "siksha o anusandhan",
+  "siksha anusandhan",
+  "institute of technical education and research",
+];
+
+/**
+ * Check if text contains any banned keywords
+ */
+const containsBannedKeyword = (text: string): boolean => {
+  const normalizedText = text
+    .toLowerCase()
+    .replace(/['\"`\-]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  return bannedKeywords.some((keyword) => normalizedText.includes(keyword));
+};
+
+const instituteValidation = z
+  .string()
+  .min(1, MESSAGES.REQUIRED("Institute name"))
+  .refine((val) => !containsBannedKeyword(val), {
+    message: MESSAGES.INSTITUTE_BANNED,
+  });
+
+const universityValidation = z
+  .string()
+  .min(1, MESSAGES.REQUIRED("University/Board"))
+  .refine((val) => !containsBannedKeyword(val), {
+    message: MESSAGES.INSTITUTE_BANNED,
+  });
 
 export const MunRegistrationSchema = z
   .object({
@@ -32,8 +71,8 @@ export const MunRegistrationSchema = z
     studentType: z.enum(["SCHOOL", "COLLEGE"], {
       errorMap: () => ({ message: "Student type is required" }),
     }),
-    institute: z.string().min(1, MESSAGES.REQUIRED("Institute name")),
-    university: z.string().min(1, MESSAGES.REQUIRED("University/Board")),
+    institute: instituteValidation,
+    university: universityValidation,
     city: z.string().min(1, MESSAGES.REQUIRED("City")),
     state: z.string().min(1, MESSAGES.REQUIRED("State")),
     rollNumber: z.string().min(1, MESSAGES.REQUIRED("Roll number")),

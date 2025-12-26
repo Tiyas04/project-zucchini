@@ -4,7 +4,9 @@ import { type User } from "@repo/firebase-config";
 import { RegistrationSchema, type Registration } from "@repo/shared-types";
 import { useApi } from "@repo/shared-utils";
 import CloudinaryUploader from "../cloudinary-uploader";
+import SearchableSelect from "../ui/searchable-select";
 import { registrationFields } from "@/config/register";
+import { collegeOptions, OTHER_COLLEGE_VALUE } from "@/config/register/colleges";
 import { useFormState, renderFormFields, SubmitButton, ErrorDisplay } from "@/utils/form";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
@@ -146,15 +148,71 @@ export default function RegistrationForm({ user, onComplete }: RegistrationFormP
 
       {/* Basic Information */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Render fields except institute and university */}
         {renderFormFields(
-          registrationFields.map((field) => ({
-            ...field,
-            disabled: isNitrStudent && (field.name === "institute" || field.name === "university"),
-          })),
+          registrationFields
+            .filter((field) => field.name !== "institute" && field.name !== "university")
+            .map((field) => ({
+              ...field,
+            })),
           formData,
           errors,
           handleInputChange
         )}
+
+        {/* Institute Name - Searchable Dropdown */}
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            Institute Name <span className="text-red-500">*</span>
+          </label>
+          {isNitrStudent ? (
+            <input
+              type="text"
+              value={formData.institute || ""}
+              disabled
+              className="w-full px-4 py-3 border border-gray-200 bg-gray-50 rounded-xl opacity-50 cursor-not-allowed"
+            />
+          ) : (
+            <SearchableSelect
+              options={[
+                ...collegeOptions.map((c) => ({ label: c.label, value: c.value })),
+                { label: "Other (Enter manually)", value: OTHER_COLLEGE_VALUE },
+              ]}
+              value={formData.institute}
+              onChange={(value) => {
+                const selectedCollege = collegeOptions.find((c) => c.value === value);
+                if (selectedCollege) {
+                  handleInputChange("institute", selectedCollege.value);
+                  handleInputChange("university", selectedCollege.value);
+                } else {
+                  handleInputChange("institute", value);
+                }
+              }}
+              placeholder="Search for your college..."
+              error={errors.institute}
+              allowCustom={true}
+              customPlaceholder="Enter your college/institute name..."
+            />
+          )}
+        </div>
+
+        {/* University Name - Auto-filled or manual */}
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            University Name <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="text"
+            value={formData.university || ""}
+            onChange={(e) => handleInputChange("university", e.target.value)}
+            placeholder="Enter your university name"
+            disabled={isNitrStudent}
+            className={`w-full px-4 py-3 border rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+              errors.university ? "border-red-300 bg-red-50" : "border-gray-200 bg-gray-50"
+            } ${isNitrStudent ? "opacity-50 cursor-not-allowed" : ""}`}
+          />
+          {errors.university && <p className="mt-1 text-sm text-red-600">{errors.university}</p>}
+        </div>
       </div>
 
       {/* ID Card Upload */}
