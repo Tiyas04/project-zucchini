@@ -165,6 +165,7 @@ export default function MunRegistrationForm({
         handleInstituteBlur={handleInstituteBlur}
         handleUniversityBlur={handleUniversityBlur}
         hideStudentType={hideStudentType}
+        onNitrStudentDetected={() => setIsNitrStudent(true)}
       />
 
       {!hideCommitteeChoice && (

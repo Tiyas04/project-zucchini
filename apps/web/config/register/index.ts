@@ -73,3 +73,63 @@ export const referralField: FieldConfig = {
   required: false,
   gridSpan: "full",
 };
+
+// NIT Rourkela constants
+export const NITR_INSTITUTE_NAME = "National Institute of Technology Rourkela";
+export const NITR_UNIVERSITY_NAME = "NIT Rourkela";
+
+// Direct abbreviations and variations for NIT Rourkela
+const NITR_DIRECT_MATCHES = [
+  "nitrkl",
+  "nit rkl",
+  "nit-rkl",
+  "nit_rkl",
+  "nit rou",
+  "nit-rou",
+  "nitrourkela",
+  "nit rourkela",
+  "nit-rourkela",
+  "nit_rourkela",
+  "rkl nit",
+  "rourkela nit",
+];
+
+// Regex patterns for NIT Rourkela detection
+const NITR_PATTERNS = [
+  // Full name variations
+  /national\s*institute\s*of\s*tech(nology)?\s*[,\-]?\s*r(ou)?r?k(e)?l(a)?/,
+  // NIT + Rourkela variations
+  /n\.?i\.?t\.?\s*[,\-]?\s*r(ou)?r?k(e)?l(a)?/,
+  // Rourkela + NIT variations
+  /r(ou)?r?k(e)?l(a)?\s*[,\-]?\s*n\.?i\.?t\.?/,
+  // With "Orissa" or "Odisha"
+  /nit\s*(rourkela|rkl)\s*[,\-]?\s*(orissa|odisha)?/,
+  // Common typos
+  /nitroukela|nitrorkela|nitrurkela/,
+];
+
+/**
+ * Check if the given value represents NIT Rourkela using various abbreviations and patterns
+ */
+export function isNitRourkela(value: string): boolean {
+  const normalized = value.toLowerCase().trim();
+
+  // Check direct matches
+  if (NITR_DIRECT_MATCHES.some((match) => normalized === match)) {
+    return true;
+  }
+
+  // Check regex patterns
+  if (NITR_PATTERNS.some((pattern) => pattern.test(normalized))) {
+    return true;
+  }
+
+  // Check for partial matches with context
+  const hasNit = normalized.includes("nit") || normalized.includes("national institute");
+  const hasRourkela =
+    normalized.includes("rourkela") ||
+    normalized.includes("rkl") ||
+    (normalized.includes("rou") && (normalized.includes("nit") || normalized.includes("national")));
+
+  return hasNit && hasRourkela;
+}

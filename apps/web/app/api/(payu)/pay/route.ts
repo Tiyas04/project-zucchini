@@ -54,11 +54,6 @@ export async function POST(req: NextRequest) {
   try {
     const auth = await requireAuth(req);
     const userFirebaseId = auth.uid;
-    const user = await getUserByFirebaseUid(userFirebaseId);
-    if (!user) {
-      return handleError(new Error("User not found"));
-    }
-    const userId = user.id;
 
     const {
       name,
@@ -68,13 +63,24 @@ export async function POST(req: NextRequest) {
       isCollegeStudent = true,
       committeeChoice,
     } = await req.json();
+    let userId: number | undefined;
+
+    // Only fetch user for NITRUTSAV type
+    if (type === "NITRUTSAV") {
+      const user = await getUserByFirebaseUid(userFirebaseId);
+
+      if (!user) {
+        return handleError(new Error("User not found"));
+      }
+      userId = user.id;
+    }
 
     const amount = calculateAmount(type, isCollegeStudent, committeeChoice);
 
     const transaction = await createTransaction(
       type,
       amount,
-      type === "NITRUTSAV" ? userId : undefined,
+      userId,
       type === "MUN" ? teamId : undefined
     );
 

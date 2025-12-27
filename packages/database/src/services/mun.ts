@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-nocheck - build fails without this
 
 import { db } from "../index";
 import { munRegistrationsTable, transactionsTable, usersTable } from "../schema";

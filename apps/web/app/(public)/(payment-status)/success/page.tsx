@@ -2,8 +2,8 @@
 import { LoadingState } from "@/components/registration";
 import { useApi } from "@repo/shared-utils";
 import { toast } from "sonner";
-import { useEffect, useState } from "react";
-import { onAuthStateChanged } from "@repo/firebase-config";
+import { Suspense, useEffect, useState } from "react";
+import { useAuth } from "@/contexts/auth-context";
 import { useSearchParams } from "next/navigation";
 import { Check, X } from "lucide-react";
 
@@ -15,10 +15,11 @@ interface TransactionDetails {
   bank_ref_num?: string;
 }
 
-export default function Success() {
+function SuccessContent() {
   const [paymentStatus, setPaymentStatus] = useState<"success" | "failure" | "pending">("pending");
   const [transactionDetails, setTransactionDetails] = useState<TransactionDetails | null>(null);
   const searchParams = useSearchParams();
+  const { user, isLoading: authLoading } = useAuth();
 
   const { execute, loading: isLoading } = useApi({
     onError(error) {
@@ -27,7 +28,7 @@ export default function Success() {
   });
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(async (user) => {
+    const verifyPayment = async () => {
       if (user) {
         const txnid = searchParams.get("txnid");
         if (!txnid) {
@@ -52,12 +53,12 @@ export default function Success() {
           toast.error("Payment verification failed");
         }
       }
-    });
+    };
 
-    return () => unsubscribe();
-  }, []);
+    verifyPayment();
+  }, [user]);
 
-  if (isLoading || paymentStatus === "pending") return <LoadingState />;
+  if (authLoading || isLoading || paymentStatus === "pending") return <LoadingState />;
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
@@ -99,5 +100,13 @@ export default function Success() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function Success() {
+  return (
+    <Suspense fallback={<LoadingState />}>
+      <SuccessContent />
+    </Suspense>
   );
 }

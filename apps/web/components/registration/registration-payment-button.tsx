@@ -31,7 +31,7 @@ export default function RegistrationPaymentButton({
   });
 
   const handleSubmit = async () => {
-    if (!teamId) {
+    if (!teamId && window.location.pathname.includes("/mun")) {
       toast.error("Team ID is required");
       return;
     }

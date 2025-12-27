@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { signInWithGoogle, signOut } from "@repo/firebase-config";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import GoogleIcon from "@/components/google";
+import GoogleIcon from "@repo/ui/google-icon";
 import { useApi } from "@repo/shared-utils";
 import Link from "next/link";
 import { Clock } from "lucide-react";
@@ -30,7 +30,7 @@ export default function LoginPage({ className, ...props }: React.ComponentProps<
         method: "GET",
       });
 
-      if (response?.amIAdmin) {
+      if (response?.data?.amIAdmin) {
         router.push("/");
       } else {
         await signOut();
@@ -38,7 +38,7 @@ export default function LoginPage({ className, ...props }: React.ComponentProps<
           method: "GET",
         });
 
-        if (checkResponse?.isRegistered && !checkResponse?.isVerified) {
+        if (checkResponse?.data?.isRegistered && !checkResponse?.data?.isVerified) {
           setIsPendingVerification(true);
         } else {
           setErrorMessage("Access denied: You are not authorized to access the admin portal.");

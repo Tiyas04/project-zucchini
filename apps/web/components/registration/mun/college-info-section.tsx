@@ -4,6 +4,7 @@ import CloudinaryUploader from "../../cloudinary-uploader";
 import { FormSection } from "../../ui";
 import { collegeOptions, OTHER_COLLEGE_VALUE } from "../../../config/register/colleges";
 import { collegeInfoFields } from "../../../config/register/mun";
+import { isNitRourkela } from "../../../config/register";
 import { renderFormFields } from "../../../utils/form";
 
 interface CollegeInfoSectionProps {
@@ -15,6 +16,8 @@ interface CollegeInfoSectionProps {
   handleInstituteBlur: () => void;
   handleUniversityBlur: () => void;
   hideStudentType?: boolean;
+  /** Callback when NIT Rourkela is detected from dropdown selection */
+  onNitrStudentDetected?: () => void;
 }
 
 export function CollegeInfoSection({
@@ -26,6 +29,7 @@ export function CollegeInfoSection({
   handleInstituteBlur,
   handleUniversityBlur,
   hideStudentType,
+  onNitrStudentDetected,
 }: CollegeInfoSectionProps) {
   return (
     <FormSection title="College / Institute Details">
@@ -84,6 +88,12 @@ export function CollegeInfoSection({
               value={formData.institute}
               onChange={(value) => {
                 const selectedCollege = collegeOptions.find((c) => c.value === value);
+
+                // Check if NIT Rourkela is selected and notify parent
+                if (isNitRourkela(value) && onNitrStudentDetected) {
+                  onNitrStudentDetected();
+                }
+
                 if (selectedCollege) {
                   handleFieldChange("institute", selectedCollege.value);
                   handleFieldChange("university", selectedCollege.value);

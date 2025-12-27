@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { signInWithGoogle, signOut } from "@repo/firebase-config";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import GoogleIcon from "@/components/google";
+import GoogleIcon from "@repo/ui/google-icon";
 import { useApi } from "@repo/shared-utils";
 import Link from "next/link";
 import { CheckCircle, Clock, AlertCircle } from "lucide-react";
@@ -35,13 +35,13 @@ export default function RegisterPage({ className, ...props }: React.ComponentPro
         body: JSON.stringify({ name: name || user.displayName }),
       });
 
-      if (response?.success) {
+      if (response?.data?.success) {
         setStatus("success");
-      } else if (response?.error === "Already registered") {
+      } else if (response?.data?.error === "Already registered") {
         setStatus("already-registered");
-        setIsVerified(response?.isVerified || false);
+        setIsVerified(response?.data?.isVerified || false);
       } else {
-        setErrorMessage(response?.error || "Registration failed");
+        setErrorMessage(response?.data?.error || "Registration failed");
       }
     } catch (error) {
       console.error("Registration failed:", error);
