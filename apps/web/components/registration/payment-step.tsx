@@ -1,23 +1,13 @@
+import { UserData } from "@/app/(public)/register/page";
 import RegistrationPaymentButton from "@/components/registration/registration-payment-button";
-
-interface UserData {
-  name: string;
-  email: string;
-}
 
 interface PaymentStepProps {
   userData: UserData;
   paymentError: string | null;
-  onPaymentSuccess: () => void;
   onPaymentFailure: (errorMessage: string) => void;
 }
 
-export function PaymentStep({
-  userData,
-  paymentError,
-  onPaymentSuccess,
-  onPaymentFailure,
-}: PaymentStepProps) {
+export function PaymentStep({ userData, paymentError, onPaymentFailure }: PaymentStepProps) {
   return (
     <div className="py-6">
       <div className="text-center mb-8">
@@ -37,7 +27,6 @@ export function PaymentStep({
         <RegistrationPaymentButton
           userName={userData.name}
           userEmail={userData.email}
-          onPaymentSuccess={onPaymentSuccess}
           onPaymentFailure={onPaymentFailure}
         />
       </div>

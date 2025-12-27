@@ -1,4 +1,3 @@
-import type { Registration } from "@repo/shared-types";
 import type { FieldConfig } from "@/utils/form";
 
 // Basic registration fields

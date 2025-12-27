@@ -14,7 +14,7 @@ import {
 
 type RegistrationStep = "auth" | "form" | "payment" | "complete";
 
-interface UserData {
+export interface UserData {
   name: string;
   email: string;
 }
@@ -104,10 +104,6 @@ export default function RegisterPage() {
     }
   };
 
-  const handlePaymentSuccess = () => {
-    setCurrentStep("complete");
-  };
-
   const handlePaymentFailure = (errorMessage: string) => {
     setPaymentError(errorMessage);
   };
@@ -136,7 +132,6 @@ export default function RegisterPage() {
             <PaymentStep
               userData={userData}
               paymentError={paymentError}
-              onPaymentSuccess={handlePaymentSuccess}
               onPaymentFailure={handlePaymentFailure}
             />
           )}
