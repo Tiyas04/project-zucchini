@@ -7,6 +7,8 @@
 @theme inline {
   --font-baloo: var(--font-baloo);
   --font-inria: var(--font-inria);
+  --font-berkshire: var(--font-berkshire);
+  --font-calistoga: var(--font-calistoga);
 }
 
 /* Hero animations */
