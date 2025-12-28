@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Mousewheel, FreeMode } from "swiper/modules";
+import { Keyboard, FreeMode } from "swiper/modules";
 import "swiper/css";
 import { Images } from "@/config/events";
 
@@ -49,14 +49,15 @@ export default function EventSwiper({
         onSwiper={(swiper) => (swiperRef.current = swiper)}
         slidesPerView="auto"
         spaceBetween={32}
+        slideToClickedSlide={true}
+        threshold={5000}
+        speed={500}
         freeMode
-        mousewheel={{
-          forceToAxis: true,
-          sensitivity: 1,
-          releaseOnEdges: false,
+        keyboard={{
+          enabled: true,
         }}
-        grabCursor
-        modules={[Mousewheel, FreeMode]}
+        grabCursor={false}
+        modules={[Keyboard, FreeMode]}
         onSlideChange={handleScroll}
         className="!overflow-visible transform-gpu"
       >

@@ -13,8 +13,10 @@ import {
   Images,
 } from "@/config/events";
 import EventSwiper from "./eventswiper";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { inriaSans, calistoga, berkshireSwash } from "@/fonts";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 
 // Category Mapping
 const categories: Record<string, any[]> = {
@@ -28,10 +30,18 @@ const categories: Record<string, any[]> = {
 export default function Event() {
   const [activeCategory, setActiveCategory] = useState("Pro Shows");
   const [activeIndex, setActiveIndex] = useState(0);
+  const textSwiperRef = useRef<any>(null);
 
   // Get current events list
   const currentEvents = categories[activeCategory] || ProShows;
   const activeEvent = currentEvents[activeIndex];
+
+  // Sync Text Swiper with activeIndex
+  useEffect(() => {
+    if (textSwiperRef.current) {
+      textSwiperRef.current.slideTo(activeIndex);
+    }
+  }, [activeIndex]);
 
   return (
     <div className="relative w-full min-h-screen overflow-hidden bg-black">
@@ -84,14 +94,28 @@ export default function Event() {
 
         {/* EVENT INFO & CATEGORY MENU */}
         <div className="w-full max-w-[90vw] mx-auto mt-8 flex flex-col md:grid md:grid-cols-2 gap-10 md:gap-14 px-4 text-white">
-          {/* LEFT: EVENT DETAILS */}
-          <div className="flex flex-col gap-6">
-            <h1 className="text-5xl md:text-7xl font-calistoga uppercase tracking-wide text-white">
-              {activeEvent?.name || "Event Name"}
-            </h1>
-            <p className="text-xl md:text-2xl font-berkshire leading-relaxed text-white max-w-xl">
-              {activeEvent?.description || "Event description goes here."}
-            </p>
+          {/* LEFT: EVENT DETAILS (VERTICAL SWIPER) */}
+          <div className="h-[200px] md:h-[300px] w-full overflow-hidden">
+            <Swiper
+              direction="vertical"
+              onSwiper={(swiper) => (textSwiperRef.current = swiper)}
+              allowTouchMove={false}
+              slidesPerView={1}
+              spaceBetween={20}
+              speed={500}
+              className="h-full"
+            >
+              {currentEvents.map((event, idx) => (
+                <SwiperSlide key={idx} className="flex flex-col justify-center gap-6">
+                  <h1 className="text-5xl md:text-7xl font-calistoga uppercase tracking-wide text-white">
+                    {event.name}
+                  </h1>
+                  <p className="text-xl md:text-2xl font-berkshire leading-relaxed text-white max-w-xl">
+                    {event.description}
+                  </p>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
 
           {/* RIGHT: CATEGORY MENU */}
@@ -104,7 +128,7 @@ export default function Event() {
                   onClick={() => setActiveCategory(category)}
                   className={`
                                         group relative flex items-center text-xl uppercase tracking-wider transition-all duration-300 font-calistoga
-                                        ${isActive ? "" : "font-light text-white hover:text-white/80"}
+                                        ${isActive ? "scale-110" : "font-light text-white hover:text-white/80"}
                                     `}
                 >
                   {/* TEXT WITH GRADIENT IF ACTIVE */}
