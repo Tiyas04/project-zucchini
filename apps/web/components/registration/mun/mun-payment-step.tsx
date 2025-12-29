@@ -23,12 +23,12 @@ export function MunPaymentStep({
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Payment</h2>
-        <p className="text-gray-600">Complete your MUN registration payment</p>
+        <h2 className="text-2xl font-bold text-white mb-2">Payment</h2>
+        <p className="text-white/80">Complete your MUN registration payment</p>
       </div>
 
       {paymentError && (
-        <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
+        <div className="p-3 bg-red-500/20 border-2 border-red-400 rounded-[13px] text-red-200 text-sm backdrop-blur-[9.25px]">
           {paymentError}
         </div>
       )}

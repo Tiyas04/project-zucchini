@@ -9,7 +9,6 @@ import {
   Teammate2FormStep,
   MunPaymentStep,
 } from "@/components/registration/mun";
-import { PORTFOLIO_MATRIX_URL } from "@/config/register/mun";
 import SectionHeading from "@/components/ui/section-heading";
 
 export default function MunRegisterPage() {
@@ -49,17 +48,6 @@ export default function MunRegisterPage() {
     <div className="min-h-screen py-8 px-4 sm:px-6 lg:px-8 relative overflow-hidden reg-bg-image">
       <div className="max-w-full mx-auto relative z-10 mt-24">
         <SectionHeading title="MUN Registration" />
-
-        <p className="text-center mb-6 mt-6">
-          <a
-            href={PORTFOLIO_MATRIX_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-white hover:text-gray-200 underline font-inria text-lg"
-          >
-            View Portfolio Matrix
-          </a>
-        </p>
 
         <ProgressBar currentStep={currentStep} />
         <div className="max-w-5xl mx-auto p-6 font-inria form-container gradient-border">

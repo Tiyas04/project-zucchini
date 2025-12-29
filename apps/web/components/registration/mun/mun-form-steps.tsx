@@ -2,6 +2,7 @@ import type { User } from "@repo/firebase-config";
 import type { MunRegistration } from "@repo/shared-types";
 import MunRegistrationForm from "./mun-registration-form";
 import type { TeamData, TeamNitrStatus } from "@/lib/mun-storage";
+import { PORTFOLIO_MATRIX_URL } from "@/config/register/mun";
 
 interface LeaderFormStepProps {
   user: User;
@@ -28,8 +29,8 @@ export function LeaderFormStep({
     <div>
       {isTeamRegistration && (
         <div className="mb-6">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Team Leader Registration</h2>
-          <p className="text-gray-600">Step 1 of 3: Enter your details as the team leader</p>
+          <h2 className="text-2xl font-bold text-white mb-2">Team Leader Registration</h2>
+          <p className="text-white/80">Step 1 of 3: Enter your details as the team leader</p>
         </div>
       )}
       <MunRegistrationForm
@@ -40,6 +41,7 @@ export function LeaderFormStep({
         onComplete={onComplete}
         isNitrStudent={teamNitrStatus.leader}
         setIsNitrStudent={onNitrStatusChange}
+        portfolioMatrixUrl={PORTFOLIO_MATRIX_URL}
       />
     </div>
   );
@@ -69,8 +71,8 @@ export function Teammate1FormStep({
   return (
     <div>
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Teammate 1 Registration</h2>
-        <p className="text-gray-600">Step 2 of 3: Enter details for your first teammate</p>
+        <h2 className="text-2xl font-bold text-white mb-2">Teammate 1 Registration</h2>
+        <p className="text-white/80">Step 2 of 3: Enter details for your first teammate</p>
       </div>
       <MunRegistrationForm
         user={user}
@@ -92,6 +94,7 @@ export function Teammate1FormStep({
         lockNitrStatus={true}
         onBack={onBack}
         hideStudentType={true}
+        portfolioMatrixUrl={PORTFOLIO_MATRIX_URL}
       />
     </div>
   );
@@ -121,8 +124,8 @@ export function Teammate2FormStep({
   return (
     <div>
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Teammate 2 Registration</h2>
-        <p className="text-gray-600">Step 3 of 3: Enter details for your second teammate</p>
+        <h2 className="text-2xl font-bold text-white mb-2">Teammate 2 Registration</h2>
+        <p className="text-white/80">Step 3 of 3: Enter details for your second teammate</p>
       </div>
       <MunRegistrationForm
         user={user}
@@ -144,6 +147,7 @@ export function Teammate2FormStep({
         lockNitrStatus={true}
         onBack={onBack}
         hideStudentType={true}
+        portfolioMatrixUrl={PORTFOLIO_MATRIX_URL}
       />
     </div>
   );
