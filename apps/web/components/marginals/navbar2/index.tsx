@@ -47,7 +47,7 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 z-50 w-full px-6 pt-8 pb-2 transition-all duration-300 backdrop-blur-[2px] ${
+      className={`fixed top-0 z-50 w-full px-6 pt-8 pb-2 transition-all duration-300  ${
         isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
       }`}
     >

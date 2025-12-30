@@ -223,11 +223,11 @@
 }
 
 .about-bg-image {
-  background-image: url("https://res.cloudinary.com/djbgkveiq/image/upload/v1766979350/image_59_fslrei.png");
+  background-image: url("https://res.cloudinary.com/drf3eatfm/image/upload/v1767129472/nitrutsav-2026/tmbppapvqiq8y8kyxo5k.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  /* background-attachment: fixed; */
+  background-attachment: fixed;
 }
 
 .step-indicator-active {
@@ -403,4 +403,89 @@
 
 [data-sonner-toast] [data-button]:hover {
   background: rgba(255, 255, 255, 0.3) !important;
+}
+
+.about-card-body {
+  border-radius: 0px 20 0px 20;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(9.149999618530273px);
+  padding: 20px;
+  color: #fff;
+  position: relative;
+  --border-width: 1.5px;
+  --border-radius: 20px 0px 20px 0px;
+  --bg-color: rgba(255, 255, 255, 0.1);
+  --gradient-angle: 90deg;
+
+  border-radius: var(--border-radius);
+  background: var(--bg-color);
+  backdrop-filter: blur(2.576474666595459px);
+}
+
+.about-card-body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--border-radius);
+  padding: var(--border-width);
+  background: linear-gradient(
+    var(--gradient-angle),
+    #fffabe 0%,
+    #e7581f 20%,
+    #8d2357 40%,
+    #055a44 60%,
+    #fb229e 80%,
+    #9906be 90%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.video-card-body {
+  border-radius: 19px 0 20px 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(9.149999618530273px);
+  padding: 8px;
+  position: relative;
+  --border-width: 2px;
+  --border-radius: 0 19.598px;
+  --bg-color: rgba(0, 0, 0, 0.6);
+  --gradient-angle: 90deg;
+
+  border-radius: var(--border-radius);
+  background: var(--bg-color);
+  backdrop-filter: blur(2.576474666595459px);
+}
+
+.video-card-body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--border-radius);
+  padding: var(--border-width);
+  background: linear-gradient(
+    var(--gradient-angle),
+    #fffabe 0%,
+    #e7581f 20%,
+    #8d2357 40%,
+    #055a44 60%,
+    #fb229e 80%,
+    #9906be 90%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
 }
