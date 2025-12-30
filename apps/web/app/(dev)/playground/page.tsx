@@ -1,8 +1,9 @@
-import Hero from "@/components/hero/hero";
+import HeroWrapper from "@/components/hero/hero-wrapper";
+
 const Playground = () => {
   return (
     <div>
-      <Hero />
+      <HeroWrapper />
     </div>
   );
 };

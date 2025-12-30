@@ -3,6 +3,8 @@ import "./globals.css";
 import Footer from "@/components/marginals/footer";
 import { baloo, inriaSans } from "@/fonts";
 import { Toaster } from "sonner";
+import Loader from "@/components/loader";
+
 export const metadata: Metadata = {
   title: "Nitrutsav 2026 | Literary and Cultural Fest - NIT Rourkela",
   description:
@@ -18,6 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${baloo.variable} ${inriaSans.variable}`}>
+        <Loader />
         {children}
         <Toaster position="top-right" richColors />
         {/* <Footer /> */}

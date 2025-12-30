@@ -1,9 +1,9 @@
-import Hero from "@/components/hero/hero";
+import HeroWrapper from "@/components/hero/hero-wrapper";
 
 export default function Home() {
   return (
     <>
-      <Hero />
+      <HeroWrapper />
     </>
   );
 }
