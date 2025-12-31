@@ -163,11 +163,59 @@ export default function CloudinaryUploader({
 
   const copyToClipboard = async (url: string) => {
     try {
-      await navigator.clipboard.writeText(url);
-      setCopiedUrl(url);
-      setTimeout(() => setCopiedUrl(null), 2000);
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(url);
+        setCopiedUrl(url);
+        setTimeout(() => setCopiedUrl(null), 2000);
+      } else {
+        // Fallback for when navigator.clipboard is not available (e.g., http)
+        const textArea = document.createElement("textarea");
+        textArea.value = url;
+
+        // Ensure it's not visible but part of the DOM
+        textArea.style.position = "fixed";
+        textArea.style.left = "-9999px";
+        textArea.style.top = "0";
+        document.body.appendChild(textArea);
+
+        textArea.focus();
+        textArea.select();
+
+        try {
+          const successful = document.execCommand("copy");
+          if (successful) {
+            setCopiedUrl(url);
+            setTimeout(() => setCopiedUrl(null), 2000);
+          } else {
+            console.error("Fallback: Copy command was unsuccessful");
+            setError("Failed to copy URL");
+          }
+        } catch (err) {
+          console.error("Fallback: Oops, unable to copy", err);
+          setError("Failed to copy URL");
+        }
+
+        document.body.removeChild(textArea);
+      }
     } catch (err) {
       console.error("Failed to copy:", err);
+      // Try fallback if primary method fails
+      try {
+        const textArea = document.createElement("textarea");
+        textArea.value = url;
+        textArea.style.position = "fixed";
+        textArea.style.left = "-9999px";
+        textArea.style.top = "0";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textArea);
+        setCopiedUrl(url);
+        setTimeout(() => setCopiedUrl(null), 2000);
+      } catch (fallbackErr) {
+        setError("Failed to copy to clipboard");
+      }
     }
   };
 
