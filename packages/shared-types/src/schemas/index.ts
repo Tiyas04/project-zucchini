@@ -61,7 +61,7 @@ const PATTERNS = {
   NAME: /^[a-zA-Z\s]+$/,
   EMAIL: /^[a-z0-9](?:\.?[a-z0-9]){5,}@g(?:oogle)?mail\.com$/,
   PHONE: /^\d{10}$/,
-  REFERRAL: /^\d{10,}$/,
+  REFERRAL: /^[A-Z]{2,4}\d{6,8}$/, // Format: NAME(2-4 uppercase) + digits (6-8)
 };
 
 /**

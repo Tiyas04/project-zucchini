@@ -7,13 +7,14 @@ export async function POST(request: NextRequest) {
   try {
     const auth = await requireAuth(request);
     const body = await request.json();
-    const { isNitrStudent = false, wantsAccommodation = false, ...formData } = body;
+    const { isNitrStudent = false, wantsAccommodation = false, referralCode, ...formData } = body;
 
     const result = await registerUser(
       formData as Registration,
       auth.uid,
       isNitrStudent,
-      wantsAccommodation
+      wantsAccommodation,
+      referralCode // Pass referral code for validation
     );
     return handleResponse(result, 201);
   } catch (error) {

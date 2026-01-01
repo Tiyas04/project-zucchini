@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Users, Gavel, TrendingUp, ArrowRight, CheckCircle, Clock } from "lucide-react";
-import { useNitrutsavStats, useMunStats } from "@/lib/queries";
+import { Users, Gavel, TrendingUp, ArrowRight, CheckCircle, Clock, Share2 } from "lucide-react";
+import { useNitrutsavStats, useMunStats, useReferralLeaderboard } from "@/lib/queries";
 
 function DashboardCard({
   title,
@@ -49,8 +49,9 @@ function DashboardCard({
 export default function AdminPage() {
   const { data: nitrutsavStats, isLoading: nitrutsavLoading } = useNitrutsavStats();
   const { data: munStats, isLoading: munLoading } = useMunStats();
+  const { data: referralData, isLoading: referralLoading } = useReferralLeaderboard();
 
-  const loading = nitrutsavLoading || munLoading;
+  const loading = nitrutsavLoading || munLoading || referralLoading;
 
   if (loading) {
     return (
@@ -121,6 +122,18 @@ export default function AdminPage() {
               { label: "Teams", value: munStats.teams },
               { label: "Male", value: munStats.male },
               { label: "Female", value: munStats.female },
+            ]}
+          />
+        )}
+        {referralData && (
+          <DashboardCard
+            title="Referrals"
+            href="/referrals"
+            icon={Share2}
+            color="bg-amber-500/20 text-amber-400"
+            stats={[
+              { label: "Total Referrals", value: referralData.totalReferrals },
+              { label: "Active Referrers", value: referralData.totalReferrers },
             ]}
           />
         )}

@@ -194,6 +194,7 @@ export const checkCrossRegistration = async (firebaseUid: string) => {
       userId: munUser.id,
       name: munUser.name,
       email: munUser.email,
+      referralCode: null, // MUN registrations don't have referral codes
       isPaymentVerified: munUser.isPaymentVerified,
       isNitrStudent: munUser.isNitrStudent,
       isVerified: munUser.isVerified,
@@ -209,6 +210,7 @@ export const checkCrossRegistration = async (firebaseUid: string) => {
       userId: nitrutsavUser.id,
       name: nitrutsavUser.name,
       email: nitrutsavUser.email,
+      referralCode: nitrutsavUser.referralCode,
       isPaymentVerified: nitrutsavUser.isPaymentVerified,
       isNitrStudent: nitrutsavUser.isNitrStudent,
       isVerified: nitrutsavUser.isVerified,
@@ -222,6 +224,7 @@ export const checkCrossRegistration = async (firebaseUid: string) => {
     userId: null,
     name: null,
     email: null,
+    referralCode: null,
     isPaymentVerified: false,
     isNitrStudent: false,
     isVerified: false,

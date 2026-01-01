@@ -1,7 +1,7 @@
 "use client";
 
 import { type User } from "@repo/firebase-config";
-import { registrationFields } from "@/config/register";
+import { registrationFields, referralField } from "@/config/register";
 import { renderFormFields, SubmitButton, ErrorDisplay } from "@/utils/form";
 import { useRegistrationForm } from "@/hooks/use-registration-form";
 import { NITRUTSAV_FEES } from "@/config";
@@ -12,7 +12,7 @@ import DocumentUpload from "./document-upload";
 
 interface RegistrationFormProps {
   user: User;
-  onComplete: (isNitrStudent: boolean, wantsAccommodation: boolean) => void;
+  onComplete: (isNitrStudent: boolean, wantsAccommodation: boolean, referralCode?: string) => void;
 }
 
 export default function RegistrationForm({ user, onComplete }: RegistrationFormProps) {
@@ -66,6 +66,9 @@ export default function RegistrationForm({ user, onComplete }: RegistrationFormP
             onToggle={setWantsAccommodation}
           />
         )}
+
+        {/* Referral Code - Optional */}
+        {renderFormFields([referralField], formData, errors, handleInputChange)}
       </div>
 
       {/* Document Uploads - Compact Layout */}

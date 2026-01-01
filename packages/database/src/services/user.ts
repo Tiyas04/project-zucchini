@@ -26,13 +26,115 @@ export const getUserByFirebaseUid = async (firebaseUid: string) => {
   };
 };
 
+/**
+ * Generate a referral code using the formula: NAME(4) + USER_ID + PHONE_SUFFIX = 10 chars
+ */
+export const generateReferralCode = (name: string, userId: number, phone: string): string => {
+  // Extract first name and get up to 4 uppercase letters
+  const firstName = name
+    .split(" ")[0]
+    .toUpperCase()
+    .replace(/[^A-Z]/g, "");
+  const namePart = firstName.substring(0, 4).padEnd(4, "X").substring(0, 4);
+
+  // Convert userId to string
+  const userIdStr = String(userId);
+
+  // Calculate how many phone digits we need (10 - name length - userId length)
+  const phoneSuffixLength = 10 - namePart.length - userIdStr.length;
+
+  // Get the last N digits of phone
+  const phoneSuffix = phone.slice(-Math.max(0, phoneSuffixLength));
+
+  return `${namePart}${userIdStr}${phoneSuffix}`;
+};
+
+/**
+ * Validate a referral code and return the referrer's info
+ */
+export const validateReferralCode = async (code: string) => {
+  if (!code) return null;
+
+  const [referrer] = await db
+    .select({
+      id: usersTable.id,
+      name: usersTable.name,
+      referralCode: usersTable.referralCode,
+    })
+    .from(usersTable)
+    .where(eq(usersTable.referralCode, code.toUpperCase()))
+    .limit(1);
+
+  return referrer || null;
+};
+
+/**
+ * Get referral leaderboard with counts
+ */
+export const getReferralLeaderboard = async (limit: number = 50) => {
+  const users = await db
+    .select({
+      id: usersTable.id,
+      name: usersTable.name,
+      referralCode: usersTable.referralCode,
+      phone: usersTable.phone,
+    })
+    .from(usersTable)
+    .where(eq(usersTable.referralCode, usersTable.referralCode)); // All users with referral codes
+
+  // Count referrals for each user
+  const allUsers = await db
+    .select({
+      id: usersTable.id,
+      referredBy: usersTable.referredBy,
+    })
+    .from(usersTable);
+
+  const referralCounts = new Map<number, number>();
+  allUsers.forEach((user) => {
+    if (user.referredBy) {
+      referralCounts.set(user.referredBy, (referralCounts.get(user.referredBy) || 0) + 1);
+    }
+  });
+
+  // Build leaderboard
+  const leaderboard = users
+    .map((user) => ({
+      id: user.id,
+      name: user.name,
+      referralCode: user.referralCode,
+      referralCount: referralCounts.get(user.id) || 0,
+    }))
+    .filter((user) => user.referralCount > 0)
+    .sort((a, b) => b.referralCount - a.referralCount)
+    .slice(0, limit);
+
+  const totalReferrals = Array.from(referralCounts.values()).reduce((a, b) => a + b, 0);
+
+  return {
+    leaderboard,
+    totalReferrals,
+    totalReferrers: leaderboard.length,
+  };
+};
+
 export const registerUser = async (
   userData: Registration,
   firebaseUid: string,
   isNitrStudent: boolean = false,
-  wantsAccommodation: boolean = true
+  wantsAccommodation: boolean = true,
+  inputReferralCode?: string
 ) => {
   validateAndThrow(RegistrationSchema, userData, "User registration");
+
+  // Validate referral code if provided
+  let referrerId: number | null = null;
+  if (inputReferralCode) {
+    const referrer = await validateReferralCode(inputReferralCode);
+    if (referrer) {
+      referrerId = referrer.id;
+    }
+  }
 
   const [newUser] = await db
     .insert(usersTable)
@@ -46,7 +148,8 @@ export const registerUser = async (
       university: userData.university,
       rollNumber: userData.rollNumber,
       idCard: userData.idCard,
-      referralCode: userData.referralCode || null,
+      referralCode: null, // Will be generated after insert
+      referredBy: referrerId,
       permission: userData.permission,
       undertaking: userData.undertaking,
       wantsAccommodation,
@@ -59,7 +162,15 @@ export const registerUser = async (
     throw new Error("Failed to create user");
   }
 
-  return { userId: newUser.id };
+  // Generate and update referral code with the new user ID
+  const generatedReferralCode = generateReferralCode(userData.name, newUser.id, userData.phone);
+
+  await db
+    .update(usersTable)
+    .set({ referralCode: generatedReferralCode })
+    .where(eq(usersTable.id, newUser.id));
+
+  return { userId: newUser.id, referralCode: generatedReferralCode };
 };
 
 export const getPaginatedUsers = async (pageSize: number = 10, page: number = 0) => {

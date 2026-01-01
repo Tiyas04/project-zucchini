@@ -1,6 +1,6 @@
 "use client";
 
-import { CheckCircle, Home, Copy, Check } from "lucide-react";
+import { CheckCircle, Home, Copy, Check, Share2 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { socialLinks } from "@/config/register/social-links";
@@ -8,16 +8,26 @@ import { SocialLinkButton } from "./social-link-button";
 
 interface CompleteStepProps {
   userId?: number | null;
+  referralCode?: string | null;
 }
 
-export function CompleteStep({ userId }: CompleteStepProps) {
+export function CompleteStep({ userId, referralCode }: CompleteStepProps) {
   const [copied, setCopied] = useState(false);
+  const [referralCopied, setReferralCopied] = useState(false);
 
   const copyRegId = () => {
     if (userId) {
       navigator.clipboard.writeText(userId.toString());
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  const copyReferralCode = () => {
+    if (referralCode) {
+      navigator.clipboard.writeText(referralCode);
+      setReferralCopied(true);
+      setTimeout(() => setReferralCopied(false), 2000);
     }
   };
 
@@ -30,7 +40,7 @@ export function CompleteStep({ userId }: CompleteStepProps) {
       </p>
 
       {userId && (
-        <div className="bg-white/10 rounded-lg p-4 mb-6">
+        <div className="bg-white/10 rounded-lg p-4 mb-4">
           <p className="text-white/70 text-sm font-inria mb-1">Your Registration ID</p>
           <div className="flex items-center justify-center gap-2">
             <span className="text-white font-bold text-xl font-baloo">{userId}</span>
@@ -42,6 +52,34 @@ export function CompleteStep({ userId }: CompleteStepProps) {
               {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
             </button>
           </div>
+        </div>
+      )}
+
+      {referralCode && (
+        <div className="bg-gradient-to-r from-purple-900/30 to-amber-900/30 rounded-lg p-4 mb-6 border border-purple-500/30">
+          <div className="flex items-center justify-center gap-2 mb-1">
+            <Share2 className="w-4 h-4 text-purple-400" />
+            <p className="text-purple-300 text-sm font-inria">Your Referral Code</p>
+          </div>
+          <div className="flex items-center justify-center gap-2">
+            <code className="text-white font-bold text-2xl font-mono tracking-wider">
+              {referralCode}
+            </code>
+            <button
+              onClick={copyReferralCode}
+              className="text-white/70 hover:text-white transition-colors"
+              title="Copy Referral Code"
+            >
+              {referralCopied ? (
+                <Check className="w-4 h-4 text-green-400" />
+              ) : (
+                <Copy className="w-4 h-4" />
+              )}
+            </button>
+          </div>
+          <p className="text-white/50 text-xs mt-2 font-inria">
+            Share this code with friends to earn referral points!
+          </p>
         </div>
       )}
 

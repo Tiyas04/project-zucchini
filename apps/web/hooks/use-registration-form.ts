@@ -11,7 +11,7 @@ import { toast } from "sonner";
 
 interface UseRegistrationFormProps {
   user: User;
-  onComplete: (isNitrStudent: boolean, wantsAccommodation: boolean) => void;
+  onComplete: (isNitrStudent: boolean, wantsAccommodation: boolean, referralCode?: string) => void;
 }
 
 export function useRegistrationForm({ user, onComplete }: UseRegistrationFormProps) {
@@ -61,14 +61,14 @@ export function useRegistrationForm({ user, onComplete }: UseRegistrationFormPro
     loading: isSubmitting,
     error: submitError,
     execute: registerApi,
-  } = useApi<{ userId: number }>({
-    onSuccess: () => {
+  } = useApi<{ userId: number; referralCode: string }>({
+    onSuccess: (data) => {
       toast.success("Registration successful!", {
         description: isNitrStudent
           ? "Your registration is complete. No payment required for NIT Rourkela students."
           : "Please proceed to payment to complete your registration.",
       });
-      onComplete(isNitrStudent, wantsAccommodation);
+      onComplete(isNitrStudent, wantsAccommodation, data?.referralCode);
     },
     onError: (error) => {
       toast.error("Registration failed", {
@@ -136,6 +136,7 @@ export function useRegistrationForm({ user, onComplete }: UseRegistrationFormPro
       method: "POST",
       body: JSON.stringify({
         ...formData,
+        referralCode: formData.referralCode || undefined,
         isNitrStudent,
         wantsAccommodation: isNitrStudent ? false : wantsAccommodation,
       }),

@@ -124,3 +124,25 @@ export async function searchMunUsers(query: string): Promise<TeamMember[]> {
   }>(`/api/registrations/mun?search=${encodeURIComponent(query)}`);
   return data.data.registrations;
 }
+
+// Referral types
+export type ReferralLeaderboardEntry = {
+  id: number;
+  name: string;
+  referralCode: string | null;
+  referralCount: number;
+};
+
+export type ReferralLeaderboardData = {
+  leaderboard: ReferralLeaderboardEntry[];
+  totalReferrals: number;
+  totalReferrers: number;
+};
+
+export async function fetchReferralLeaderboard(): Promise<ReferralLeaderboardData> {
+  const data = await fetchJson<{
+    success: boolean;
+    data: ReferralLeaderboardData;
+  }>("/api/registrations/referrals");
+  return data.data;
+}
