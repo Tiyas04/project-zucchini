@@ -29,7 +29,7 @@ export default function RootLayout({
           <EventCategoryProvider>
             <AudioProvider>
               <HOC>
-                <div classname="flex flex-col min-h-screen items-center justify-center">
+                <div className="flex flex-col min-h-screen items-center justify-center">
                 Coming soon.
                   Team NU26
                 </div>
