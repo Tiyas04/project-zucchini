@@ -85,7 +85,9 @@ export function CompleteStep({ userId, referralCode }: CompleteStepProps) {
           <SocialLinkButton key={link.href} link={link} />
         ))}
       </div>
-
+      <p className="text-white/70 text-sm font-inria mb-4 text-left">
+        Note: Please fill up the participants declaration form and bring it with you to the event.
+      </p>
       <Link
         href={"/"}
         className="gradient-border-btn w-full py-3 px-6 text-white font-semibold hover:bg-white/30 transition-all duration-200 flex items-center justify-center gap-2 font-inria"

@@ -27,8 +27,9 @@ export default function EventSwiper({
         slideToClickedSlide={false} // handled manually
         speed={500}
         autoplay={{
-          delay: 5000,
-          disableOnInteraction: false,
+          delay: 10000,
+          disableOnInteraction: true,
+          pauseOnMouseEnter: true,
         }}
         keyboard={{
           enabled: true,

@@ -30,26 +30,45 @@ export default function RadioGroup({
 }: RadioGroupProps) {
   return (
     <div className={className}>
-      <label className="block text-sm font-medium font-inria text-white mb-0.5">
+      <label className="block text-sm font-medium font-inria text-white mb-2">
         {label} {required && <span className="asterisk-icon">*</span>}
       </label>
-      <div className="flex gap-4">
-        {options.map((option) => (
-          <label key={option.value} className="flex items-center cursor-pointer">
-            <input
-              type="radio"
-              name={name}
-              value={option.value}
-              checked={value === option.value}
-              onChange={(e) => onChange(e.target.value)}
-              disabled={readonly || disabled}
-              className="w-4 h-4 accent-white focus:ring-white/50"
-            />
-            <span className="ml-2 text-white text-sm font-semibold">{option.label}</span>
-          </label>
-        ))}
+      <div className="flex gap-3">
+        {options.map((option) => {
+          const isSelected = value === option.value;
+          return (
+            <div key={option.value} className="flex flex-col items-center gap-2">
+              <label
+                className={`
+                  relative flex items-center justify-center cursor-pointer
+                  w-6 h-6 rounded-lg transition-all duration-200
+                  ${
+                    isSelected
+                      ? "border-2 border-white shadow-[0_0_10px_rgba(255,255,255,0.3)]"
+                      : "border border-gray-500/60 hover:border-gray-400"
+                  }
+                  ${readonly || disabled ? "opacity-50 cursor-not-allowed" : ""}
+                  bg-white/10
+                `}
+              >
+                <input
+                  type="radio"
+                  name={name}
+                  value={option.value}
+                  checked={isSelected}
+                  onChange={(e) => onChange(e.target.value)}
+                  disabled={readonly || disabled}
+                  className="sr-only"
+                />
+                {/* Custom radio indicator */}
+                {isSelected && <span className="w-2 h-2 rounded-full bg-white" />}
+              </label>
+              <span className="text-white text-sm font-medium">{option.label}</span>
+            </div>
+          );
+        })}
       </div>
-      {error && <p className="mt-0.5 text-xs text-red-400">{error}</p>}
+      {error && <p className="mt-1 text-xs text-red-400">{error}</p>}
     </div>
   );
 }

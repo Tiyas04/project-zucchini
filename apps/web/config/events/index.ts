@@ -4,67 +4,67 @@ export const FlagshipEvents = [
     description:
       "A grand cultural inauguration featuring traditional performances, lights, and a spectacular welcome.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Battle of Bands",
     description: "College bands compete with electrifying performances to win hearts and glory.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "EDM Night",
     description:
       "A high-energy electronic music night with powerful beats, lights, and crowd-pumping vibes.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Classical Night",
     description:
       "An enchanting evening of Indian classical music and dance celebrating timeless art forms.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Fashion Show",
     description: "A glamorous showcase of creativity, style, and storytelling through fashion.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Dance Night",
     description:
       "An explosive night featuring group and solo dance performances across multiple styles.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Drama & Theatre",
     description:
       "Powerful stage plays and theatrical performances conveying stories with emotion and depth.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Celebrity Night",
     description: "A star-studded evening featuring a renowned artist performing live on stage.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Cultural Parade",
     description:
       "A vibrant parade showcasing diverse cultures, traditions, and artistic expressions.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Closing Ceremony",
     description:
       "The grand finale celebrating achievements, memories, and the spirit of the cultural fest.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
 ];
 
@@ -73,61 +73,61 @@ export const ProShows = [
     name: "Prom Night",
     description: "Join us for a magical evening of dance and music under the stars.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Star Night",
     description: "Experience the galaxy like never before with our immersive astronomy show.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "DJ Night",
     description: "Dance to electrifying beats by top DJs from across the country.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Comedy Night",
     description: "Laugh out loud with hilarious performances by renowned stand-up comedians.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Rock Band Night",
     description: "Feel the adrenaline as live rock bands set the stage on fire.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Indie Vibes",
     description: "A soulful evening featuring indie artists and original compositions.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Classical Fusion",
     description: "A unique blend of classical melodies with modern musical elements.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Open Mic Night",
     description: "Witness raw talent as performers take the stage for an open mic session.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "EDM Carnival",
     description: "High-energy EDM performances with stunning lights and visuals.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Retro Night",
     description: "Travel back in time with classic hits and retro-themed performances.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
 ];
 
@@ -137,61 +137,61 @@ export const FunEvents = [
     description:
       "Race across campus solving clues and completing challenges to uncover the final treasure.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Open Mic Night",
     description: "A free stage for poetry, music, comedy, and spontaneous performances.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Gaming Arena",
     description: "Compete in popular PC and console games with friends and rivals.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Minute to Win It",
     description: "Fast-paced mini games that test your speed, focus, and coordination.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Spin the Wheel",
     description: "Try your luck with exciting dares, tasks, and surprise rewards.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Dumb Charades",
     description: "Guess the movie, song, or phrase through hilarious actions and gestures.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Quizathon",
     description: "A fun and interactive quiz covering pop culture, movies, music, and memes.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Bollywood Bingo",
     description: "A desi twist on bingo with Bollywood songs, dialogues, and moments.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Photo Booth Carnival",
     description: "Capture memories with themed photo booths, props, and instant prints.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Street Games Zone",
     description: "Relive childhood fun with games like gitte, kanche, and lagori.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
 ];
 
@@ -200,63 +200,63 @@ export const MainEvents = [
     name: "Dance Competition",
     description: "High-energy solo and group dance performances competing across multiple styles.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Singing Competition",
     description: "Showcase your vocal talent in solo and duet singing performances.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Street Play (Nukkad Natak)",
     description: "Powerful street theatre performances highlighting social issues and stories.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Fashion Walk",
     description: "Teams present themed fashion walks combining creativity, style, and narration.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Short Film Festival",
     description: "Screening and competition of short films created by student filmmakers.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Battle of Bands",
     description: "Bands compete live with original compositions and covers to win the title.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Poetry Slam",
     description: "Express emotions and ideas through spoken word and poetry performances.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Art Exhibition",
     description:
       "Display and judge creative artworks including paintings, sketches, and installations.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Photography Contest",
     description:
       "Capture moments around campus and the fest through a competitive photography challenge.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Quiz Competition",
     description: "Test your knowledge across culture, history, entertainment, and current affairs.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
 ];
 
@@ -266,62 +266,62 @@ export const WorkshopandExihibition = [
     description:
       "Learn the fundamentals of photography, framing, and lighting from industry professionals.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Dance Workshop",
     description: "An interactive workshop covering contemporary and classical dance techniques.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Music Production Workshop",
     description: "Hands-on session on music production, mixing, and sound design.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Theatre & Acting Workshop",
     description: "Explore acting techniques, voice modulation, and stage presence.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Fine Arts Exhibition",
     description:
       "A curated exhibition showcasing paintings, sketches, and installations by students.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Craft & Handicraft Expo",
     description: "Discover handmade crafts, traditional art forms, and creative merchandise.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Film Making Workshop",
     description: "Learn storytelling, cinematography, and editing for short films.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Calligraphy Workshop",
     description: "Practice the art of beautiful writing using traditional and modern styles.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Cultural Heritage Exhibition",
     description: "An exhibition celebrating regional traditions, history, and cultural diversity.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
   {
     name: "Creative Writing Workshop",
     description: "Enhance your storytelling, poetry, and scriptwriting skills.",
     posterurl:
-      "https://res.cloudinary.com/drf3eatfm/image/upload/v1767256709/nitrutsav-2026/pb1ca2ollxluyyyi4im7.webp",
+      "https://res.cloudinary.com/dz4lwydkp/image/upload/v1767560704/nitrutsav-2026/e3f3vljzfvu8d5g4zwxx.webp",
   },
 ];
 

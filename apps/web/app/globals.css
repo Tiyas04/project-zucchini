@@ -790,3 +790,13 @@ html::-webkit-scrollbar {
   border-radius: 48px;
   background: linear-gradient(86deg, rgba(170, 22, 126, 0.51) -2.5%, rgba(62, 113, 217, 0.51) 100%);
 }
+
+.music-visualizer {
+  display: flex;
+  padding: 6px 8px;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.2);
+}

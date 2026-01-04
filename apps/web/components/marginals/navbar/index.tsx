@@ -11,6 +11,7 @@ import GradientUnderline from "./gradient";
 import CountdownTimer from "./countdown-timer";
 import MusicVisualizer from "./music-visualizer";
 import { useEventCategory } from "@/contexts/event-category-context";
+import MobileMusicVisualizer from "./mobile-music-visualizer";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -103,6 +104,10 @@ export default function Header() {
               );
             })}
           </nav>
+        </div>
+
+        <div className="block md:hidden">
+          <MobileMusicVisualizer />
         </div>
 
         <div className="flex items-center gap-4 lg:gap-12">

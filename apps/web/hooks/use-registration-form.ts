@@ -24,8 +24,10 @@ export function useRegistrationForm({ user, onComplete }: UseRegistrationFormPro
         email: user.email || "",
         name: user.displayName || "",
         gender: undefined,
-        permission: undefined as any,
-        undertaking: undefined as any,
+        // Use dummy URLs for permission and undertaking to pass validation (fields are commented out in form)
+        // Not removed from db as might be required in future
+        permission: "https://some-website.com/permission",
+        undertaking: "https://some-website.com/undertaking",
       },
       RegistrationSchema
     );
@@ -37,24 +39,15 @@ export function useRegistrationForm({ user, onComplete }: UseRegistrationFormPro
         ...prev,
         institute: NITR_INSTITUTE_NAME,
         university: NITR_UNIVERSITY_NAME,
-        // Set dummy URLs for permission and undertaking to pass validation
-        permission: "https://nitr.ac.in/permission",
-        undertaking: "https://nitr.ac.in/undertaking",
-      }));
-      // Clear any validation errors for these fields
-      setErrors((prev) => {
-        const newErrors = { ...prev };
-        delete newErrors.permission;
-        delete newErrors.undertaking;
-        return newErrors;
-      });
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-        permission: undefined as any,
-        undertaking: undefined as any,
       }));
     }
+    // Clear any validation errors for permission and undertaking (always using dummy values)
+    setErrors((prev) => {
+      const newErrors = { ...prev };
+      delete newErrors.permission;
+      delete newErrors.undertaking;
+      return newErrors;
+    });
   }, [isNitrStudent, setFormData, setErrors]);
 
   const {

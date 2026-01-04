@@ -21,13 +21,16 @@ export default function EventInfo({ events, onSwiper }: EventInfoProps) {
         className="h-full"
       >
         {events.map((event, idx) => (
-          <SwiperSlide key={idx} className="flex flex-col justify-center gap-6">
-            <h1 className="text-2xl md:text-4xl font-calistoga font-bold uppercase tracking-wide text-white">
-              {event.name}
-            </h1>
-            <p className="text-xl md:text-xl font-berkshire leading-relaxed text-white max-w-xl">
-              {event.description}
-            </p>
+          <SwiperSlide key={idx} className="flex flex-col justify-center ">
+            <div className="flex flex-col items-start justify-center gap-6">
+              {" "}
+              <h1 className="text-2xl md:text-4xl font-calistoga font-bold uppercase tracking-wide text-white">
+                {event.name}
+              </h1>
+              <p className="text-xl md:text-xl font-inria leading-relaxed text-white max-w-xl">
+                {event.description}
+              </p>
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>

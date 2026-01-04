@@ -7,14 +7,17 @@ const background =
 
 export default function SponsorsPage(): JSX.Element {
   return (
-    <div className="bg-[#010005] w-full  relative text-white grid place-items-center min-h-screen">
-      <img
-        className=" inset-0 w-full h-full object-cover  fixed"
-        alt="Carnival Background"
-        src={background}
-      />
+    <div
+      className="bg-[#010005] w-full relative text-white grid place-items-center min-h-screen before:content-[''] before:absolute before:inset-0 before:w-full before:h-full before:bg-cover before:bg-center before:bg-no-repeat before:z-0 after:content-[''] after:absolute after:inset-0 after:w-full after:h-full after:bg-black/30 after:backdrop-blur-sm after:z-[1] md:after:hidden"
+      style={{ "--bg-image": `url(${background})` } as React.CSSProperties}
+    >
+      <style>{`
+        div[style*="--bg-image"]::before {
+          background-image: var(--bg-image);
+        }
+      `}</style>
 
-      <div>
+      <div className="relative z-10">
         <TitleSponsors />
         <PlatinumSponsors />
       </div>

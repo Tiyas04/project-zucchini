@@ -1,3 +1,5 @@
+import RadioGroup from "@/components/ui/radio-group";
+
 interface AccommodationSelectorProps {
   wantsAccommodation: boolean;
   onToggle: (value: boolean) => void;
@@ -10,33 +12,22 @@ export default function AccommodationSelector({
   disabled = false,
 }: AccommodationSelectorProps) {
   return (
-    <div>
-      <label className="block text-sm font-medium font-inria text-white mb-0.5">
-        Accommodation Preference <span className="asterisk-icon">*</span>
-      </label>
-      <div className="flex gap-4">
-        <label className="flex items-center cursor-pointer">
-          <input
-            type="radio"
-            name="accommodation"
-            checked={!wantsAccommodation}
-            onChange={() => onToggle(false)}
-            disabled={disabled}
-            className="w-4 h-4 accent-white focus:ring-white/50"
-          />
-          <span className="ml-2 text-white text-sm font-semibold">Not Required</span>
-        </label>
-        <label className="flex items-center cursor-pointer">
-          <input
-            type="radio"
-            name="accommodation"
-            checked={wantsAccommodation}
-            onChange={() => onToggle(true)}
-            disabled={disabled}
-            className="w-4 h-4 accent-white focus:ring-white/50"
-          />
-          <span className="ml-2 text-white text-sm font-semibold">Required</span>
-        </label>
+    <div className="flex flex-col gap-2 items-start">
+      <RadioGroup
+        label="Accommodation Preference"
+        name="accommodation"
+        value={wantsAccommodation ? "required" : "not-required"}
+        onChange={(value) => onToggle(value === "required")}
+        options={[
+          { value: "not-required", label: "Not Required" },
+          { value: "required", label: "Required" },
+        ]}
+        required
+        disabled={disabled}
+      />
+      <div className="text-xs text-white/60 flex gap-2 flex-col">
+        <span>With Accomodation : ₹849</span>
+        <span>Without Accomodation : ₹1099</span>
       </div>
     </div>
   );

@@ -23,7 +23,26 @@ const IMAGES_TO_PRELOAD = [
 
 export default function Home() {
   const { play } = useAudio();
-  const [showPreloader, setShowPreloader] = useState(true);
+
+  const isClientNavigation = () => {
+    if (typeof window === "undefined") return false;
+
+    const navEntries = performance.getEntriesByType("navigation") as PerformanceNavigationTiming[];
+    const firstEntry = navEntries[0];
+    if (firstEntry) {
+      const navType = firstEntry.type;
+      if (navType !== "navigate" && navType !== "reload") {
+        return true;
+      }
+    }
+    if (document.readyState === "complete" && performance.now() > 1000) {
+      return true;
+    }
+
+    return false;
+  };
+
+  const [showPreloader, setShowPreloader] = useState(() => !isClientNavigation());
   const [isActive, setIsActive] = useState(false);
   const [removeGif, setRemoveGif] = useState(false);
   const [imagesLoaded, setImagesLoaded] = useState(false);

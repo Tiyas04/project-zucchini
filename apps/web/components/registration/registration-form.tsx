@@ -72,7 +72,7 @@ export default function RegistrationForm({ user, onComplete }: RegistrationFormP
       </div>
 
       {/* Document Uploads - Compact Layout */}
-      <div className={`grid grid-cols-1 ${!isNitrStudent ? "md:grid-cols-3" : ""} gap-4`}>
+      <div className="grid grid-cols-1 gap-4">
         {/* ID Card Upload */}
         <DocumentUpload
           label="College/University ID Card"
@@ -83,8 +83,8 @@ export default function RegistrationForm({ user, onComplete }: RegistrationFormP
           compact
         />
 
-        {/* Permission Document Upload - Only for non-NITR students */}
-        {!isNitrStudent && (
+        {/* Permission Document Upload - Commented out for now */}
+        {/* {!isNitrStudent && (
           <DocumentUpload
             label="Permission Document"
             description="Signed permission from institute"
@@ -93,10 +93,10 @@ export default function RegistrationForm({ user, onComplete }: RegistrationFormP
             onUploadComplete={(url) => handleInputChange("permission", url)}
             compact
           />
-        )}
+        )} */}
 
-        {/* Undertaking Document Upload - Only for non-NITR students */}
-        {!isNitrStudent && (
+        {/* Undertaking Document Upload - Commented out for now */}
+        {/* {!isNitrStudent && (
           <DocumentUpload
             label="Undertaking Document"
             description="Signed declaration document"
@@ -105,7 +105,7 @@ export default function RegistrationForm({ user, onComplete }: RegistrationFormP
             onUploadComplete={(url) => handleInputChange("undertaking", url)}
             compact
           />
-        )}
+        )} */}
       </div>
 
       <ErrorDisplay error={submitError} />
