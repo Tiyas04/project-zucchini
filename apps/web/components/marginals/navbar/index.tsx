@@ -18,11 +18,9 @@ export default function Header() {
   const [isClosing, setIsClosing] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
-  const [isCategoryClosing, setIsCategoryClosing] = useState(false);
+  const [isEventsDropdownOpen, setIsEventsDropdownOpen] = useState(false);
   const pathname = usePathname();
   const { activeCategory, setActiveCategory, categories } = useEventCategory();
-  const isEventsPage = pathname === "/events";
 
   const isActiveRoute = (href: string) => {
     return pathname === href;
@@ -35,16 +33,11 @@ export default function Header() {
     else setIsMenuOpen(true);
   };
 
-  const handleCloseCategoryMenu = () => setIsCategoryClosing(true);
-
-  const toggleCategoryMenu = () => {
-    if (isCategoryOpen) handleCloseCategoryMenu();
-    else setIsCategoryOpen(true);
-  };
+  /* Removed unused handlers: handleCloseCategoryMenu, toggleCategoryMenu */
 
   const handleCategorySelect = (category: string) => {
     setActiveCategory(category);
-    handleCloseCategoryMenu();
+    /* Removed handleCloseCategoryMenu() call */
   };
 
   useEffect(() => {
@@ -66,7 +59,7 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 z-[9999] w-full px-6 pt-4 md:pt-8 pb-2 transition-all duration-300  ${
+      className={`fixed top-0 z-9999 w-full px-6 pt-4 md:pt-8 pb-2 transition-all duration-300  ${
         isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
       }`}
     >
@@ -119,23 +112,7 @@ export default function Header() {
             <MusicVisualizer />
           </div>
 
-          {/* Mobile Event Category Button - Only visible on events page */}
-          {isEventsPage && (
-            <button
-              onClick={toggleCategoryMenu}
-              className="md:hidden relative w-8 h-8 focus:outline-none z-50"
-              aria-label="Event Categories"
-            >
-              <Image
-                src={Images.iconimage}
-                alt="Event Categories"
-                fill
-                className={`object-contain transition-all duration-300 ${
-                  isCategoryOpen && !isCategoryClosing ? "scale-110" : ""
-                }`}
-              />
-            </button>
-          )}
+          {/* Removed Mobile Event Category Button */}
 
           {/* Mobile Burger Menu */}
           <button
@@ -177,12 +154,65 @@ export default function Header() {
             if (isClosing) {
               setIsMenuOpen(false);
               setIsClosing(false);
+              setIsEventsDropdownOpen(false);
             }
           }}
         >
           <nav className="flex flex-col gap-8 text-white text-2xl text-center font-inria">
             {navItems.map((item) => {
               const isActive = isActiveRoute(item.href);
+              const isEventItem = item.label === "Events";
+
+              if (isEventItem) {
+                return (
+                  <div key={item.label} className="flex flex-col items-center">
+                    <button
+                      onClick={() => setIsEventsDropdownOpen(!isEventsDropdownOpen)}
+                      className={`cursor-pointer relative group transition-opacity duration-300 ${
+                        isActive || isEventsDropdownOpen
+                          ? "opacity-100"
+                          : "opacity-60 hover:opacity-100"
+                      }`}
+                    >
+                      {item.label}
+                      <div
+                        className={`absolute left-0 -bottom-2 h-[3px] transition-all duration-300 overflow-hidden ${
+                          isActive || isEventsDropdownOpen ? "w-full" : "w-0 group-hover:w-full"
+                        }`}
+                      >
+                        <GradientUnderline className="w-full h-full" />
+                      </div>
+                    </button>
+
+                    <div
+                      className={`overflow-hidden transition-all duration-300 ease-in-out flex flex-col gap-4 mt-2 ${
+                        isEventsDropdownOpen
+                          ? "max-h-[300px] opacity-100 pt-4"
+                          : "max-h-0 opacity-0"
+                      }`}
+                    >
+                      {categories.map((category) => (
+                        <Link
+                          key={category}
+                          href="/events"
+                          onClick={() => {
+                            handleCategorySelect(category);
+                            handleCloseMenu();
+                          }}
+                          className={`text-lg uppercase tracking-wider transition-all duration-300 ${
+                            activeCategory === category
+                              ? "bg-clip-text text-transparent bg-gradient-to-r from-[#EA0B0F] via-[#F3BC16] to-[#FF0092]"
+                              : "text-white/70 hover:text-white"
+                          }`}
+                        >
+                          {category}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                );
+              }
+
               return (
                 <Link
                   key={item.label}
@@ -207,46 +237,7 @@ export default function Header() {
         </div>
       )}
 
-      {/* Mobile Event Category Dropdown */}
-      {isCategoryOpen && (
-        <div
-          className="fixed inset-0 min-h-screen bg-black/95 flex flex-col items-center justify-center md:hidden"
-          style={{
-            zIndex: 44,
-            animation: isCategoryClosing
-              ? "slideFadeOut 0.3s ease-in forwards"
-              : "slideFadeIn 0.3s ease-out forwards",
-          }}
-          onAnimationEnd={() => {
-            if (isCategoryClosing) {
-              setIsCategoryOpen(false);
-              setIsCategoryClosing(false);
-            }
-          }}
-        >
-          <div className="flex flex-col gap-6 text-center">
-            <h3 className="text-white/60 text-sm uppercase tracking-widest font-inria mb-2">
-              Event Categories
-            </h3>
-            {categories.map((category) => {
-              const isActive = activeCategory === category;
-              return (
-                <button
-                  key={category}
-                  onClick={() => handleCategorySelect(category)}
-                  className={`text-xl font-calistoga uppercase tracking-wider transition-all duration-300 ${
-                    isActive
-                      ? "bg-clip-text text-transparent bg-gradient-to-r from-[#EA0B0F] via-[#F3BC16] to-[#FF0092] scale-110"
-                      : "text-white/70 hover:text-white"
-                  }`}
-                >
-                  {category}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      )}
+      {/* Removed Mobile Event Category Dropdown Overlay */}
     </header>
   );
 }

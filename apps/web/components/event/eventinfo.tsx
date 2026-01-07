@@ -15,6 +15,7 @@ export default function EventInfo({ events, onSwiper }: EventInfoProps) {
         direction="vertical"
         onSwiper={onSwiper}
         allowTouchMove={false}
+        touchStartPreventDefault={false}
         slidesPerView={1}
         spaceBetween={20}
         speed={500}
