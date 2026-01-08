@@ -30,19 +30,20 @@ export default function LoginPage({ className, ...props }: React.ComponentProps<
         method: "GET",
       });
 
-      if (response?.data?.amIAdmin) {
-        router.push("/");
-      } else {
-        await signOut();
-        const checkResponse = await execute("auth/check", {
-          method: "GET",
-        });
+      if (response?.data?.redirectUrl) {
+        router.push(response.data.redirectUrl);
+        return;
+      }
 
-        if (checkResponse?.data?.isRegistered && !checkResponse?.data?.isVerified) {
-          setIsPendingVerification(true);
-        } else {
-          setErrorMessage("Access denied: You are not authorized to access the admin portal.");
-        }
+      if (response?.data?.isVerified) {
+        router.push("/");
+        return;
+      }
+
+      if (!response?.data?.isVerified) {
+        setIsPendingVerification(true);
+      } else {
+        setErrorMessage("Access denied: You are not authorized to access the admin portal.");
       }
     } catch (error) {
       console.error("Login failed:", error);

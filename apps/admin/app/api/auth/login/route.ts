@@ -10,9 +10,22 @@ export async function GET(req: NextRequest) {
     }
 
     const admin = await getAdminByUid(auth.uid);
+    const isVerified = admin?.isVerified || false;
+    const role = admin?.role || null;
+
+    let redirectUrl: string | null = null;
+    if (isVerified) {
+      if (role === "ADMIN") redirectUrl = "/";
+      else if (role === "NU") redirectUrl = "/nitrutsav";
+      else if (role === "MUN") redirectUrl = "/mun";
+      else redirectUrl = "/"; // Default fallback for verified users
+    }
+
     return handleResponse({
-      amIAdmin: admin?.isVerified || false,
-      role: admin?.role || null,
+      isVerified,
+      role,
+      redirectUrl,
+      amIAdmin: isVerified,
     });
   } catch (error) {
     return handleApiError(error, "Invalid request");
