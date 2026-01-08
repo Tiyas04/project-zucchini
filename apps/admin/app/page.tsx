@@ -61,6 +61,8 @@ export default function AdminPage() {
       router.push("/nitrutsav");
     } else if (role === "MUN") {
       router.push("/mun");
+    } else if (role && role !== "ADMIN") {
+      router.push("/login");
     }
   }, [role, router]);
 
