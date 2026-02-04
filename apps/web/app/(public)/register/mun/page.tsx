@@ -53,7 +53,7 @@ export default function MunRegisterPage() {
     currentStep === "auth" || currentStep === "form" || currentStep === "form-leader";
 
   return (
-    <div className="min-h-screen pt-20 pb-40 px-4 sm:px-6 lg:px-8 relative overflow-hidden reg-bg-image">
+    <div className="min-h-screen pt-20 pb-20 md:pb-40 px-4 sm:px-6 lg:px-8 relative overflow-hidden reg-bg-image">
       <div className="max-w-full mx-auto relative z-10 mt-24">
         <SectionHeading title="MUN Registration" containerClassName="mb-20" />
 

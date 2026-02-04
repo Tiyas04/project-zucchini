@@ -1,4 +1,13 @@
-import { integer, pgTable, varchar, timestamp, boolean, text, pgEnum } from "drizzle-orm/pg-core";
+import {
+  integer,
+  pgTable,
+  varchar,
+  timestamp,
+  boolean,
+  text,
+  pgEnum,
+  index,
+} from "drizzle-orm/pg-core";
 
 export const genderEnum = pgEnum("gender", ["MALE", "FEMALE"]);
 export const transactionTypeEnum = pgEnum("transaction_type", ["NITRUTSAV", "MUN"]);
@@ -125,3 +134,25 @@ export const munRegistrationsTable = pgTable("mun_registrations", {
 
 export type MunRegistration = typeof munRegistrationsTable.$inferSelect;
 export type NewMunRegistration = typeof munRegistrationsTable.$inferInsert;
+
+export const regTypeEnum = pgEnum("reg_type", ["nu", "mun"]);
+
+export const checkinsTable = pgTable(
+  "checkins",
+  {
+    id: integer().primaryKey().generatedAlwaysAsIdentity(),
+    checkInBy: text().notNull(),
+    userId: integer().notNull(),
+    regType: regTypeEnum().notNull(),
+    timestamp: timestamp().notNull(),
+  },
+  (table) => {
+    return {
+      timestampIdx: index("idx_checkins_timestamp").on(table.timestamp),
+      userRegIdx: index("idx_checkins_user_reg").on(table.userId, table.regType),
+    };
+  }
+);
+
+export type Checkin = typeof checkinsTable.$inferSelect;
+export type NewCheckin = typeof checkinsTable.$inferInsert;

@@ -6,6 +6,7 @@ import {
   fetchMunTeams,
   fetchMunRegistrations,
   fetchReferralLeaderboard,
+  fetchCheckins,
 } from "./api";
 
 export const queryKeys = {
@@ -15,6 +16,7 @@ export const queryKeys = {
   munTeams: ["mun", "teams"] as const,
   munRegistrations: ["mun", "registrations"] as const,
   referralLeaderboard: ["referrals", "leaderboard"] as const,
+  checkins: ["checkins"] as const,
 };
 
 export function useNitrutsavStats() {
@@ -56,5 +58,12 @@ export function useReferralLeaderboard() {
   return useQuery({
     queryKey: queryKeys.referralLeaderboard,
     queryFn: fetchReferralLeaderboard,
+  });
+}
+
+export function useCheckins() {
+  return useQuery({
+    queryKey: queryKeys.checkins,
+    queryFn: fetchCheckins,
   });
 }

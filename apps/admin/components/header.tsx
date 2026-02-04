@@ -15,7 +15,7 @@ export default function Header({
       <div className="px-6 py-6">
         <div className="flex items-center gap-3">
           <Icon className="h-7 w-7 text-zinc-400" />
-          <H1 className="text-2xl font-semibold tracking-tight">{title}</H1>
+          <H1 className="!mb-0 text-2xl font-semibold tracking-tight">{title}</H1>
         </div>
 
         {subtitle && <P className="mt-1 text-sm text-zinc-400">{subtitle}</P>}

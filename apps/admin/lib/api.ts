@@ -146,3 +146,45 @@ export async function fetchReferralLeaderboard(): Promise<ReferralLeaderboardDat
   }>("/api/registrations/referrals");
   return data.data;
 }
+
+// Checkin types
+export type CheckinEntry = {
+  id: number;
+  checkInBy: {
+    name: string;
+    phone: string;
+  };
+  regType: "nu" | "mun";
+  timestamp: string;
+  participant: {
+    id: number;
+    name: string;
+    email: string;
+    phone: string;
+  };
+};
+
+export type CheckinStats = {
+  total: number;
+  nu: number;
+  mun: number;
+};
+
+export type CheckinData = {
+  checkins: CheckinEntry[];
+  pagination: {
+    total: number;
+    page: number;
+    pageSize: number;
+    hasMore: boolean;
+  };
+  stats: CheckinStats | null;
+};
+
+export async function fetchCheckins(): Promise<CheckinData> {
+  const data = await fetchJson<{
+    success: boolean;
+    data: CheckinData;
+  }>("/api/checkins?stats=true&pageSize=500");
+  return data.data;
+}

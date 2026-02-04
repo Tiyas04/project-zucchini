@@ -44,6 +44,7 @@ export default function RegisterPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [paymentError, setPaymentError] = useState<string | null>(null);
+  const [registrationType, setRegistrationType] = useState<string | null>(null);
 
   const { execute: checkRegistration } = useApi<CheckRegistrationResponse>();
 
@@ -66,6 +67,7 @@ export default function RegisterPage() {
             email: result.data.email!,
           });
           setUserId(result.data.userId);
+          setRegistrationType(result.data.registrationType);
 
           if (result.data.referralCode) {
             setReferralCode(result.data.referralCode);
@@ -170,7 +172,11 @@ export default function RegisterPage() {
           )}
 
           {currentStep === "complete" && (
-            <CompleteStep userId={userId} referralCode={referralCode} />
+            <CompleteStep
+              userId={userId}
+              referralCode={referralCode}
+              registrationType={registrationType}
+            />
           )}
         </div>
       </div>

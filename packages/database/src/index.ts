@@ -19,6 +19,8 @@ export {
   studentTypeEnum,
   munCommitteeEnum,
   bloodGroupEnum,
+  checkinsTable,
+  regTypeEnum,
 } from "./schema";
 
 export type {
@@ -30,6 +32,8 @@ export type {
   NewAdmin,
   MunRegistration,
   NewMunRegistration,
+  Checkin,
+  NewCheckin,
 } from "./schema";
 
 export { eq, and, or, not, sql, desc, asc } from "drizzle-orm";
