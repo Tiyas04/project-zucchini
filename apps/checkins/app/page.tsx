@@ -1,13 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Navbar } from "@/components/navbar";
-import Footer from "@/components/footer";
 
 const STORAGE_KEY = "checkin_operator";
 
@@ -22,7 +19,6 @@ function validatePhone(phone: string): boolean {
 }
 
 export default function LoginPage() {
-  const router = useRouter();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [errors, setErrors] = useState<{ name?: string; phone?: string }>({});
@@ -34,7 +30,7 @@ export default function LoginPage() {
       try {
         const data: OperatorData = JSON.parse(stored);
         if (data.name && data.phone) {
-          router.replace("/checkin");
+          window.location.href = "/checkin";
           return;
         }
       } catch {
@@ -42,7 +38,7 @@ export default function LoginPage() {
       }
     }
     setIsLoading(false);
-  }, [router]);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -72,7 +68,7 @@ export default function LoginPage() {
     };
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(operatorData));
-    router.push("/checkin");
+    window.location.href = "/checkin";
   };
 
   if (isLoading) {

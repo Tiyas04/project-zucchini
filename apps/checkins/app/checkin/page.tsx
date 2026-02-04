@@ -3,12 +3,10 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { X } from "lucide-react";
-import { Navbar } from "@/components/navbar";
 import { QrScanner, QrScannerRef } from "@/components/qr-scanner";
 import { SlideToConfirm } from "@/components/slide-to-confirm";
 import { useCheckinMutation } from "@/lib/checkin/mutations";
 import { Button } from "@/components/ui/button";
-import Footer from "@/components/footer";
 
 const STORAGE_KEY = "checkin_operator";
 

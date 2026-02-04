@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { User, Phone, LogOut } from "lucide-react";
+import { logo } from "@/config";
 
 export function Navbar() {
   const router = useRouter();
@@ -19,7 +20,7 @@ export function Navbar() {
   return (
     <header className="px-4 py-3">
       <div className="max-w-md mx-auto flex items-center justify-between">
-        <img src="/logo.svg" alt="Check-in" className="h-8" />
+        <img src={logo} alt="Check-in" className="h-8" />
         {operator && (
           <div className="relative">
             <button
