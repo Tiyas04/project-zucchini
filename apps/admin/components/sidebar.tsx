@@ -2,7 +2,15 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Users, Gavel, LogOut, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  Home,
+  Users,
+  Gavel,
+  LogOut,
+  ChevronLeft,
+  ChevronRight,
+  ClipboardCheck,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/auth-context";
@@ -12,6 +20,7 @@ const navItems = [
   { href: "/", label: "Dashboard", icon: Home },
   { href: "/nitrutsav", label: "NITRUTSAV", icon: Users },
   { href: "/mun", label: "MUN", icon: Gavel },
+  { href: "/checkins", label: "Check-ins", icon: ClipboardCheck },
 ];
 
 export function Sidebar() {
@@ -37,12 +46,12 @@ export function Sidebar() {
   return (
     <aside
       className={cn(
-        "fixed left-0 top-0 z-40 h-screen border-r border-zinc-800 bg-zinc-950 transition-all duration-300",
+        "fixed left-0 top-0 z-40 h-screen  transition-all duration-300",
         isCollapsed ? "w-16" : "w-64"
       )}
     >
       <div className="flex h-full flex-col">
-        <div className="flex h-16 items-center justify-between border-b border-zinc-800 px-4">
+        <div className="flex h-16 items-center justify-between px-4">
           {!isCollapsed && <h1 className="text-lg font-bold text-white">Admin Panel</h1>}
           <Button
             variant="ghost"

@@ -1,19 +1,24 @@
 "use client";
 
-import { CheckCircle, Home, Copy, Check, Share2 } from "lucide-react";
+import { CheckCircle, Home, Copy, Check, Share2, QrCode } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { QRCodeSVG } from "qrcode.react";
 import { socialLinks } from "@/config/register/social-links";
 import { SocialLinkButton } from "./social-link-button";
 
 interface CompleteStepProps {
   userId?: number | null;
   referralCode?: string | null;
+  registrationType: string | null;
 }
 
-export function CompleteStep({ userId, referralCode }: CompleteStepProps) {
+export function CompleteStep({ userId, referralCode, registrationType }: CompleteStepProps) {
   const [copied, setCopied] = useState(false);
   const [referralCopied, setReferralCopied] = useState(false);
+  const qrCodeContent = userId
+    ? `id=${userId}&type=${registrationType === "MUN" ? "mun" : "nu"}`
+    : "";
 
   const copyRegId = () => {
     if (userId) {
@@ -38,6 +43,46 @@ export function CompleteStep({ userId, referralCode }: CompleteStepProps) {
       <p className="text-white/90 mb-4 font-inria">
         Your registration has been successfully completed
       </p>
+
+      {/* QR Code Section */}
+      {userId && (
+        <div className="relative mb-6">
+          <div
+            className={`absolute inset-0 rounded-2xl blur-xl ${
+              registrationType === "MUN"
+                ? "bg-gradient-to-r from-blue-500/20 via-cyan-500/20 to-teal-500/20"
+                : "bg-gradient-to-r from-purple-500/20 via-pink-500/20 to-amber-500/20"
+            }`}
+          ></div>
+          <div
+            className={`relative rounded-2xl p-6 border border-white/10 backdrop-blur-sm ${
+              registrationType === "MUN"
+                ? "bg-gradient-to-br from-blue-900/40 via-black/60 to-teal-900/40"
+                : "bg-gradient-to-br from-purple-900/40 via-black/60 to-amber-900/40"
+            }`}
+          >
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <QrCode
+                className={`w-5 h-5 ${registrationType === "MUN" ? "text-cyan-400" : "text-purple-400"}`}
+              />
+              <h3 className="text-white font-semibold font-inria">Your Event QR Code</h3>
+            </div>
+            <div className="bg-white p-4 rounded-xl shadow-2xl inline-block">
+              <QRCodeSVG
+                value={qrCodeContent}
+                size={180}
+                level="H"
+                includeMargin={false}
+                bgColor="#ffffff"
+                fgColor={registrationType === "MUN" ? "#0f172a" : "#1a1a2e"}
+              />
+            </div>
+            <p className="text-white/60 text-xs mt-4 font-inria">
+              Show this QR code at the entrance for quick check-in
+            </p>
+          </div>
+        </div>
+      )}
 
       {userId && (
         <div className="bg-white/10 rounded-lg p-4 mb-4">
