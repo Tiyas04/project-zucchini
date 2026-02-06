@@ -2,11 +2,13 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { X } from "lucide-react";
+import { X, Keyboard, Camera } from "lucide-react";
 import { QrScanner, QrScannerRef } from "@/components/qr-scanner";
 import { SlideToConfirm } from "@/components/slide-to-confirm";
 import { useCheckinMutation } from "@/lib/checkin/mutations";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 const STORAGE_KEY = "checkin_operator";
 
@@ -68,6 +70,11 @@ export default function CheckinPage() {
   const [checkinResult, setCheckinResult] = useState<CheckinResult | null>(null);
   const lastScannedRef = useRef<string>("");
   const scannerRef = useRef<QrScannerRef>(null);
+
+  // Manual entry state
+  const [isManualMode, setIsManualMode] = useState(false);
+  const [manualRegId, setManualRegId] = useState("");
+  const [manualRegType, setManualRegType] = useState<"nu" | "mun">("nu");
 
   const checkinMutation = useCheckinMutation();
 
@@ -157,6 +164,37 @@ export default function CheckinPage() {
     setScannedData(null);
     setCheckinResult(null);
     lastScannedRef.current = "";
+    setManualRegId("");
+  };
+
+  const handleManualSubmit = async () => {
+    const regId = parseInt(manualRegId, 10);
+    if (isNaN(regId) || regId <= 0) {
+      setCheckinResult({
+        type: "error",
+        message: "Please enter a valid registration ID",
+      });
+      return;
+    }
+
+    // Stop scanner if running and set scanned data
+    await scannerRef.current?.stopScanning();
+    setScannedData({ userId: regId, type: manualRegType });
+    setCheckinResult(null);
+  };
+
+  const toggleInputMode = async () => {
+    if (isManualMode) {
+      // Switching back to camera mode
+      setIsManualMode(false);
+      setManualRegId("");
+      setCheckinResult(null);
+    } else {
+      // Switching to manual mode - stop camera
+      await scannerRef.current?.stopScanning();
+      setIsManualMode(true);
+      setCheckinResult(null);
+    }
   };
 
   if (isLoading) {
@@ -172,14 +210,87 @@ export default function CheckinPage() {
       <div className="w-full max-w-md">
         {!scannedData ? (
           <>
-            <QrScanner
-              ref={scannerRef}
-              onScan={handleScan}
-              isProcessing={checkinMutation.isPending}
-            />
-            <p className="text-center text-sm text-muted-foreground mt-4">
-              Point camera at participant&apos;s QR code
-            </p>
+            {/* Mode toggle button */}
+            <div className="flex justify-end mb-4">
+              <Button variant="outline" size="sm" onClick={toggleInputMode} className="gap-2">
+                {isManualMode ? (
+                  <>
+                    <Camera className="h-4 w-4" />
+                    Switch to Scanner
+                  </>
+                ) : (
+                  <>
+                    <Keyboard className="h-4 w-4" />
+                    Enter Manually
+                  </>
+                )}
+              </Button>
+            </div>
+
+            {isManualMode ? (
+              /* Manual entry form */
+              <div className="border rounded-lg p-6 bg-card space-y-6">
+                <h2 className="text-lg font-semibold text-center">Manual Check-in</h2>
+
+                {/* Registration Type Selector */}
+                <div className="space-y-2">
+                  <Label>Registration Type</Label>
+                  <div className="grid grid-cols-2 gap-2">
+                    <Button
+                      type="button"
+                      variant={manualRegType === "nu" ? "default" : "outline"}
+                      className="w-full"
+                      onClick={() => setManualRegType("nu")}
+                    >
+                      NITRUTSAV
+                    </Button>
+                    <Button
+                      type="button"
+                      variant={manualRegType === "mun" ? "default" : "outline"}
+                      className="w-full"
+                      onClick={() => setManualRegType("mun")}
+                    >
+                      NITRMUN
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Registration ID Input */}
+                <div className="space-y-2">
+                  <Label htmlFor="regId">Registration ID</Label>
+                  <Input
+                    id="regId"
+                    type="number"
+                    placeholder="Enter registration ID"
+                    value={manualRegId}
+                    onChange={(e) => setManualRegId(e.target.value)}
+                    className="text-lg"
+                    min="1"
+                  />
+                </div>
+
+                {/* Submit Button */}
+                <Button
+                  onClick={handleManualSubmit}
+                  className="w-full"
+                  disabled={!manualRegId || checkinMutation.isPending}
+                >
+                  Proceed to Check-in
+                </Button>
+              </div>
+            ) : (
+              /* QR Scanner */
+              <>
+                <QrScanner
+                  ref={scannerRef}
+                  onScan={handleScan}
+                  isProcessing={checkinMutation.isPending}
+                />
+                <p className="text-center text-sm text-muted-foreground mt-4">
+                  Point camera at participant&apos;s QR code
+                </p>
+              </>
+            )}
 
             {/* Error display */}
             {checkinResult && checkinResult.type === "error" && (

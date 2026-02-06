@@ -86,16 +86,34 @@ export function CompleteStep({ userId, referralCode, registrationType }: Complet
 
       {userId && (
         <div className="bg-white/10 rounded-lg p-4 mb-4">
-          <p className="text-white/70 text-sm font-inria mb-1">Your Registration ID</p>
-          <div className="flex items-center justify-center gap-2">
-            <span className="text-white font-bold text-xl font-baloo">{userId}</span>
-            <button
-              onClick={copyRegId}
-              className="text-white/70 hover:text-white transition-colors"
-              title="Copy Registration ID"
-            >
-              {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
-            </button>
+          <div className="flex items-center justify-between mb-3">
+            <div className="text-left">
+              <p className="text-white/70 text-sm font-inria mb-1">Registration ID</p>
+              <div className="flex items-center gap-2">
+                <span className="text-white font-bold text-xl font-baloo">{userId}</span>
+                <button
+                  onClick={copyRegId}
+                  className="text-white/70 hover:text-white transition-colors"
+                  title="Copy Registration ID"
+                >
+                  {copied ? (
+                    <Check className="w-4 h-4 text-green-400" />
+                  ) : (
+                    <Copy className="w-4 h-4" />
+                  )}
+                </button>
+              </div>
+            </div>
+            <div className="text-right">
+              <p className="text-white/70 text-sm font-inria mb-1">Registration Type</p>
+              <span
+                className={`font-bold text-lg font-baloo ${
+                  registrationType === "MUN" ? "text-cyan-400" : "text-purple-400"
+                }`}
+              >
+                {registrationType === "MUN" ? "NITRMUN" : "NITRUTSAV"}
+              </span>
+            </div>
           </div>
         </div>
       )}
