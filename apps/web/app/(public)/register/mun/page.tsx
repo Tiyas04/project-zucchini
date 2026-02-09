@@ -17,6 +17,8 @@ import { ArrowLeft } from "lucide-react";
 import { MunProgressBar } from "@/components/registration/mun-progress-bar";
 
 export default function MunRegisterPage() {
+  /*
+  
   const {
     user,
     currentStep,
@@ -52,17 +54,22 @@ export default function MunRegisterPage() {
   const showBackButton =
     currentStep === "auth" || currentStep === "form" || currentStep === "form-leader";
 
+    */
+
   return (
     <div className="min-h-screen pt-20 pb-20 md:pb-40 px-4 sm:px-6 lg:px-8 relative overflow-hidden reg-bg-image">
       <div className="max-w-full mx-auto relative z-10 mt-24">
         <SectionHeading title="MUN Registration" containerClassName="mb-20" />
 
-        {currentStep !== "info" && <MunProgressBar currentStep={currentStep} />}
+        {/* {currentStep !== "info" && <MunProgressBar currentStep={currentStep} />} */}
         <div className="max-w-5xl mx-auto p-6 font-inria form-container gradient-border">
-          <p className="text-white/70 text-sm text-center mb-4">
+          <h2 className="text-2xl font-bold text-white text-center">
+            Registrations are closed. Grateful for the amazing turnout see you all next year!
+          </h2>
+          {/* <p className="text-white/70 text-sm text-center mb-4">
             Note: Registering for MUN also grants you access to NITRUTSAV 2026.
-          </p>
-          {showBackButton && (
+          </p> */}
+          {/* {showBackButton && (
             <button
               onClick={handleBackStep}
               className="flex items-center gap-2 text-white/70 hover:text-white transition-colors mb-4 font-inria"
@@ -124,7 +131,7 @@ export default function MunRegisterPage() {
               userEmail={userData?.email}
               userName={userData?.name}
             />
-          )}
+          )} */}
         </div>
       </div>
     </div>

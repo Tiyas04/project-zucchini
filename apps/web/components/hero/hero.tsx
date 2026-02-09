@@ -37,13 +37,13 @@ export default function Hero() {
       <LogoLayer mouse={mouse} scrollY={scrollY} />
       <GirlLayer mouse={mouse} scrollY={scrollY} />
 
-      <div className="absolute md:bottom-40 bottom-24 left-1/2 -translate-x-1/2 z-34">
+      {/* <div className="absolute md:bottom-40 bottom-24 left-1/2 -translate-x-1/2 z-34">
         <Link href="/register">
           <Button className="h-[56px] md:h-[75px] w-[200px] md:w-[275px] text-white">
             Register Now
           </Button>
         </Link>
-      </div>
+      </div> */}
     </main>
   );
 }
